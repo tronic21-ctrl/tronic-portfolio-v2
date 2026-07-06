@@ -561,37 +561,35 @@ export default function Portfolio() {
       // About: scroll-pin stacking panels. Only panels that get COVERED by
       // a following panel need to be pinned — the last panel has nothing
       // stacking on top of it within this flow, so it stays a normal,
-      // unpinned section. (Only applied on desktop views to prevent mobile overlaps)
+      // unpinned section.
       const aboutPanels = gsap.utils.toArray<HTMLElement>(".about-flow-section");
-      const isMobileDevice = window.innerWidth < 992;
 
-      if (!isMobileDevice) {
-        aboutPanels.forEach((panel, i) => {
-          const isLast = i === aboutPanels.length - 1;
-          if (isLast) return;
+      aboutPanels.forEach((panel, i) => {
+        const isLast = i === aboutPanels.length - 1;
+        if (isLast) return;
 
-          ScrollTrigger.create({
+        ScrollTrigger.create({
+          trigger: panel,
+          start: "top top",
+          end: () => "+=" + window.innerHeight,
+          pin: true,
+          pinSpacing: false,
+          anticipatePin: 1,
+        });
+
+        // Card stack transition (opacity + scale scrub) is active on both mobile and desktop
+        const inner = panel.querySelector(".about-flow-inner");
+        gsap.to(inner, {
+          scale: 0.88, opacity: 0.25, ease: "none",
+          transformOrigin: "bottom left",
+          scrollTrigger: {
             trigger: panel,
             start: "top top",
             end: () => "+=" + window.innerHeight,
-            pin: true,
-            pinSpacing: false,
-            anticipatePin: 1,
-          });
-
-          const inner = panel.querySelector(".about-flow-inner");
-          gsap.to(inner, {
-            scale: 0.88, opacity: 0.25, ease: "none",
-            transformOrigin: "bottom left",
-            scrollTrigger: {
-              trigger: panel,
-              start: "top top",
-              end: () => "+=" + window.innerHeight,
-              scrub: true,
-            },
-          });
+            scrub: true,
+          },
         });
-      }
+      });
 
       // Layout above (pins, journey rail, etc.) can shift measured positions
       // after mount — force ScrollTrigger to recalculate everything once
