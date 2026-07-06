@@ -1,12 +1,12 @@
 # Riko Tronic - Portfolio v2
 
-Personal portfolio of **Riko Tronic**, a self-taught Web3 developer from Indonesia, focused on DeFi analytics and on-chain tooling.
+Personal portfolio of **Riko Tronic**, a self-taught Web3 developer focused on DeFi analytics and on-chain tooling.
 
 **Live:** [rikotronic.vercel.app](https://rikotronic.vercel.app)
 
 ## Overview
 
-A single-page, motion-driven developer portfolio built to showcase real production work - including [TronicLens](https://github.com/tronic21-ctrl), a full-stack DeFi analytics dashboard indexing live on-chain activity via The Graph, Chainlink, and 0G.
+A single-page, motion-driven developer portfolio showcasing production work across DeFi analytics, smart contract engineering, and on-chain data tooling.
 
 ## Tech Stack
 
@@ -35,4 +35,5 @@ Open [http://localhost:3000](http://localhost:3000) to view it locally.
 ## Contact
 
 - GitHub: [@tronic21-ctrl](https://github.com/tronic21-ctrl)
+- X: [@rikotronic](https://x.com/rikotronic)
 - Email: rikotronic.dev@gmail.com
