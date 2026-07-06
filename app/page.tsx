@@ -116,7 +116,7 @@ const SKILLS: Skill[] = [
   { name:"SPSS",           color:"#10b981", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> },
   { name:"EViews",         color:"#f59e0b", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 8"/><path d="M9 12h4"/></svg> },
   { name:"MS Office",      color:"#d83b01", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="#d83b01"><path d="M21.18 3H14l-2 2H5.82A2.82 2.82 0 0 0 3 7.82v8.36A2.82 2.82 0 0 0 5.82 19H14l2-2h5.18A2.82 2.82 0 0 0 24 14.18V5.82A2.82 2.82 0 0 0 21.18 3zM14 17H5.82A.82.82 0 0 1 5 16.18V7.82A.82.82 0 0 1 5.82 7H12l2 2v8zm8-2.82a.82.82 0 0 1-.82.82H16V9l-2-2h-2V5h8.18a.82.82 0 0 1 .82.82v8.36z"/></svg> },
-  { name:"Canva",          color:"#00c4cc", cat:"Economics",   level:"intermediate", img:"/canva-logo.svg" },
+  { name:"Canva",          color:"#00c4cc", cat:"Economics",   level:"intermediate", img:"/Canva-logo.svg" },
 ];
 
 const JOURNEY = [
