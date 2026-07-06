@@ -621,7 +621,7 @@ export default function Portfolio() {
       {!introDone && <IntroScreen onComplete={() => {
         sessionStorage.setItem("intro_shown", "true");
         setIntroDone(true);
-      }} />}}
+      }} />}
       {/* Global constellation background — fixed, renders behind everything */}
       <ConstellationCanvas />
 
