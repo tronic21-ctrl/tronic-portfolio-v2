@@ -171,7 +171,13 @@ function SkillIcon({ skill }: { skill: Skill }) {
 
 /* ─── MAIN PAGE ─── */
 export default function Portfolio() {
-  const [introDone, setIntroDone] = useState(false);
+  const [introDone, setIntroDone] = useState(() => {
+    // Skip intro if already shown in this browser session (e.g. on reload)
+    if (typeof window !== "undefined") {
+      return sessionStorage.getItem("intro_shown") === "true";
+    }
+    return false;
+  });
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollTopVisible, setScrollTopVisible] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -612,7 +618,10 @@ export default function Portfolio() {
 
   return (
     <>
-      {!introDone && <IntroScreen onComplete={() => setIntroDone(true)} />}
+      {!introDone && <IntroScreen onComplete={() => {
+        sessionStorage.setItem("intro_shown", "true");
+        setIntroDone(true);
+      }} />}}
       {/* Global constellation background — fixed, renders behind everything */}
       <ConstellationCanvas />
 
