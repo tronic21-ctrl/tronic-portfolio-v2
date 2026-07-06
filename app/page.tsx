@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -171,13 +171,17 @@ function SkillIcon({ skill }: { skill: Skill }) {
 
 /* ─── MAIN PAGE ─── */
 export default function Portfolio() {
-  const [introDone, setIntroDone] = useState(() => {
-    // Skip intro if already shown in this browser session (e.g. on reload)
-    if (typeof window !== "undefined") {
-      return sessionStorage.getItem("intro_shown") === "true";
+  // Start as false on server (SSR-safe). useLayoutEffect runs on client
+  // synchronously BEFORE the browser paints, so there is zero flash of
+  // the intro screen on reload when the session flag is already set.
+  const [introDone, setIntroDone] = useState(false);
+
+  useLayoutEffect(() => {
+    if (sessionStorage.getItem("intro_shown") === "true") {
+      setIntroDone(true);
     }
-    return false;
-  });
+  }, []);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollTopVisible, setScrollTopVisible] = useState(false);
   const navRef = useRef<HTMLElement>(null);
