@@ -19,9 +19,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <div className="static-splash" aria-hidden="true">
-          <div className="static-splash-logo" />
-        </div>
         {children}
       </body>
     </html>

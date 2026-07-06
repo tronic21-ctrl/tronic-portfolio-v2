@@ -45,32 +45,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
     radial-gradient(ellipse at center, #0c1a30 0%, #08122a 40%, #060d1a 100%);
   overflow: hidden;
 }
-.static-splash {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: radial-gradient(ellipse at 50% 60%, rgba(16, 35, 80, 0.25) 0%, transparent 55%),
-              radial-gradient(ellipse at center, #0c1a30 0%, #08122a 40%, #060d1a 100%);
-  pointer-events: none;
-  animation: staticSplashHide 0.1s linear 3s forwards;
-}
-
-.static-splash-logo {
-  width: min(160px, 30vw);
-  height: min(160px, 30vw);
-  background-image: url('/rt-intro.png');
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position: center;
-  opacity: 0.5;
-}
-
-@keyframes staticSplashHide {
-  to { opacity: 0; visibility: hidden; }
-}
 
 /* Subtle film-grain noise overlay */
 .intro-noise {
@@ -1508,6 +1482,20 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   margin: 0 2rem;
   flex-shrink: 0;
 }
+@media (max-width: 640px) {
+  .marquee-section {
+    padding: 2.5rem 0;
+    gap: 1rem;
+  }
+  .marquee-text {
+    font-size: 2.4rem;
+  }
+  .marquee-star {
+    width: 2.4rem;
+    height: 2.4rem;
+    margin: 0 1.2rem;
+  }
+}
 
 /* ─── ABOUT (3-panel scroll-flow) ─── */
 .about-flow-container { position: relative; }
@@ -2150,6 +2138,14 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
 }
 .footer-social a:hover {
   color: var(--accent);
+}
+@media (max-width: 640px) {
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    padding-top: 1.5rem;
+  }
 }
 
 /* Ghost name marquee divider */
