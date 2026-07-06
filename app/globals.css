@@ -375,11 +375,11 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
 }
 .hero-nav-tagline {
   flex: 1;
-  display: none;
+  display: flex;
   align-items: center;
   justify-content: center;
   font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(0.9rem, 1.5vw, 1.2rem);
+  font-size: clamp(0.72rem, 2.8vw, 1.2rem);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 0.05em;
@@ -496,7 +496,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
 @media (min-width: 769px) {
   .hero-nav-status { display: block; }
   .hero-nav-links-wrap { display: flex; }
-  .hero-nav-tagline { display: flex; }
+  .hero-nav-tagline { font-size: clamp(0.9rem, 1.5vw, 1.2rem); }
 }
 
 /* ─── HERO ─── */
