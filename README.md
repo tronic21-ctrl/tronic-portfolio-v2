@@ -6,7 +6,7 @@ Personal portfolio of **Riko Tronic**, a self-taught Web3 developer from Maluku,
 
 ## Overview
 
-A single-page, motion-driven developer portfolio built to showcase real production work — including [TronicLens](https://github.com/tronic21-ctrl), a full-stack DeFi analytics dashboard indexing live on-chain activity via The Graph, Chainlink, and 0G.
+A single-page, motion-driven developer portfolio built to showcase real production work - including [TronicLens](https://github.com/tronic21-ctrl), a full-stack DeFi analytics dashboard indexing live on-chain activity via The Graph, Chainlink, and 0G.
 
 ## Tech Stack
 
