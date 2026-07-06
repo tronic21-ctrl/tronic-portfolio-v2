@@ -1003,12 +1003,12 @@ export default function Portfolio() {
               
               {/* Project Actions */}
               <div className="project-row-actions">
-                <a href={p.link} target="_blank" rel="noreferrer" className="project-link">
-                  GitHub <span className="project-link-arrow">↗</span>
+                <a href={p.link} target="_blank" rel="noreferrer" className="project-btn project-btn-secondary">
+                  GitHub <span className="project-btn-arrow">↗</span>
                 </a>
                 {p.live !== "#" && (
-                  <a href={p.live} target="_blank" rel="noreferrer" className="project-link">
-                    Live Demo <span className="project-link-arrow">↗</span>
+                  <a href={p.live} target="_blank" rel="noreferrer" className="project-btn project-btn-primary">
+                    Live Demo <span className="project-btn-arrow">↗</span>
                   </a>
                 )}
               </div>
