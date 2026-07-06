@@ -2310,9 +2310,12 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   .stat-item { border-right:none!important; border-bottom:1px solid var(--border); }
   .about-flow-section {
     min-height: 100vh !important;
-    padding: 6.5rem 1.25rem 2rem !important;
+    padding: 5rem 1.25rem 1rem !important;
   }
-  .pipeline-flow { grid-template-columns: 1fr; gap: 2rem; position: relative; }
+  .about-flow-label { margin-bottom: 0.75rem; }
+  .about-flow-heading { margin-bottom: 0.75rem; font-size: clamp(1.8rem, 6vw, 2.5rem); }
+  .about-flow-body { font-size: 0.9rem; line-height: 1.5; margin-bottom: 0.75rem; }
+  .pipeline-flow { grid-template-columns: 1fr; gap: 1.2rem; position: relative; margin-top: 1.5rem; }
   .pipeline-track { 
     display: block; 
     top: 10px; bottom: 10px; left: 14px; width: 1px; height: auto; 
