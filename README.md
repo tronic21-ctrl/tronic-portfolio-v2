@@ -1,6 +1,6 @@
 # Riko Tronic - Portfolio v2
 
-Personal portfolio of **Riko Tronic**, a self-taught Web3 developer from Maluku, Indonesia, focused on DeFi analytics and on-chain tooling.
+Personal portfolio of **Riko Tronic**, a self-taught Web3 developer from Indonesia, focused on DeFi analytics and on-chain tooling.
 
 **Live:** [rikotronic.vercel.app](https://rikotronic.vercel.app)
 
