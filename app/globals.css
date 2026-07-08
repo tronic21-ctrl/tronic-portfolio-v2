@@ -2394,6 +2394,23 @@ a.code-line-link:hover .code-line-arrow {
   .fullscreen-menu-link {
     font-size: clamp(2.5rem, 8vw, 4rem);
   }
+  /* Proven-by-code proof rows — no hover on touch, so make the
+     tap affordance always visible instead of hover-only */
+  a.code-line-link {
+    background: rgba(56, 189, 248, 0.055);
+    border-left: 2px solid rgba(56, 189, 248, 0.35);
+    padding-left: 0.5rem;
+  }
+  .code-line-arrow {
+    opacity: 0.55;
+  }
+  a.code-line-link:active {
+    background: rgba(56, 189, 248, 0.14);
+  }
+  a.code-line-link:active .code-line-arrow {
+    opacity: 1;
+    transform: translate(2px, -2px);
+  }
 
   .stats-grid { grid-template-columns:repeat(2,1fr); }
   .stat-item { border-right:none!important; border-bottom:1px solid var(--border); }
