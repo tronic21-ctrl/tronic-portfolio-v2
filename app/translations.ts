@@ -1,0 +1,286 @@
+export type Lang = "en" | "id";
+
+export const translations = {
+  en: {
+    nav: {
+      statusLine1: "Available for",
+      statusLine2: "Work &",
+      statusLine3: "Freelance",
+      taglineLeft: "Economics",
+      taglineRight: "Blockchain",
+      menu: {
+        about: "About",
+        career: "Career",
+        projects: "Projects",
+        skills: "Skills",
+        contact: "Contact",
+      },
+    },
+    hero: {
+      eyebrow: "Web3 Developer · DeFi Analytics · Indonesia",
+      taglineLine1: "Web3 Developer",
+      taglineLine2: "based in Indonesia",
+      cta: "Download CV",
+      scroll: "Scroll",
+    },
+    about: {
+      panel1: {
+        label: "— 01 — EXECUTIVE OVERVIEW",
+        headingPre: "ECONOMICS",
+        headingMid: "× WEB3",
+        headingPost: "LEADERSHIP.",
+        accentPart: "mid",
+        bioPre: "I'm ",
+        bioMid: ", known online as ",
+        bioPost: ". Economics graduate (B.Sc. Development Economics, UNINGRAT Tual, Dec 2025) from Indonesia, who transitioned into Web3 development through self-directed learning in April 2026who transitioned into Web3 development through self-directed learning in April 2026.",
+        bioSub: "My Economics background isn't just a credential because it shapes how I think about protocol design, incentive structures, and DeFi analytics.",
+      },
+      panel2: {
+        label: "— 02 — STRATEGIC MISSION",
+        headingPre: "BUILDING",
+        headingAccent: "ON-CHAIN.",
+        headingPost: "DEFI ANALYTICS.",
+        body: "My strategic focus is building at the intersection of protocol economics and on-chain analytics. I develop secure full-stack dApps using Solidity and React, and construct deep indexing pipelines to decode raw blockchain logs into structured, actionable economic insights.",
+        valueCards: [
+          { title: "VERIFY",  desc: "Each smart contract undergoes line-by-line review and testing prior to deployment, requiring the same level of rigor as testing regression models for complex cases." },
+          { title: "BUILD",   desc: "From SimpleBank to TronicLens, six live projects shipped in three months, self-taught from zero in April 2026." },
+          { title: "ANALYZE", desc: "DeFi analytics isn't just dashboards, it's reading on-chain data the way an economist reads market signals." },
+        ],
+      },
+      panel3: {
+        label: "— 03 — TRACK RECORD",
+        headingPre: "PROVEN",
+        headingAccent: "BY CODE.",
+        verifiedBadge: "Verified",
+      },
+    },
+    stats: {
+      items: [
+        { label: "Tests Written",        sublabel: "Foundry · 98% coverage" },
+        { label: "Projects Shipped",     sublabel: "4 live deployments" },
+        { label: "Protocols Integrated", sublabel: "The Graph · Chainlink · 0G" },
+        { label: "Contracts Deployed",   sublabel: "Sepolia · verified on-chain" },
+      ],
+    },
+    journey: {
+      sectionLabel: "Career & Experience",
+      items: [
+        {
+          role: "Content Creator",
+          company: "YouTube & TikTok",
+          date: "2017 - 2024",
+          desc: "Active on YouTube & TikTok as a content creator.",
+        },
+        {
+          role: "B.Sc. Development Economics",
+          company: "UNINGRAT Tual",
+          date: "2021 - 2025",
+          desc: "Studied Development Economics at University of Doctor Husni Ingratubun (UNINGRAT) Tual. Graduated December 1, 2025.",
+        },
+        {
+          role: "Market Analyst & Trader",
+          company: "Independent",
+          date: "2025 - Mar 2026",
+          desc: "Focused on investment and trading independently across stocks, cryptocurrency, and commodities.",
+        },
+        {
+          role: "Web Development & Web3 Journey",
+          company: "Self-Directed",
+          date: "Mar 2026 - Present",
+          desc: "Started learning web development from scratch (HTML, CSS, JavaScript, React). Now building production-grade smart contracts with NatSpec documentation, security patterns (ReentrancyGuard, CEI), Foundry testing, and integrating DeFi protocols (The Graph, Chainlink, 0G Storage, 0G Compute).",
+        },
+      ],
+    },
+    projectsIntro: {
+      sectionLabel: "Projects",
+      titlePre: "SELECTED",
+      titleAccent: "PROJECTS",
+      desc: "A growing collection of builds from hackathons to client work each one shipped end-to-end, from architecture to deployment.",
+    },
+    projects: {
+      items: [
+        {
+          title: "TRONICLENS: ON-CHAIN INTELLIGENCE",
+          desc: "Full-stack DeFi analytics dashboard indexing on-chain Sepolia activity. Subgraph indexing via The Graph, Chainlink price feeds, 0G AI insights (Qwen2.5 TEE), on-chain governance. ETHOnline 2026 hackathon submission.",
+        },
+        {
+          title: "DEFI DASHBOARD WITH DUNE API & SQL LOGS",
+          desc: "Protocol analytics dashboard powered by Dune API. Custom SQL queries decoding raw Sepolia logs, live staking event tracking at dune.com/rikotronic.",
+        },
+        {
+          title: "CRYPTO TRACKER WITH LIVE MARKET DATA",
+          desc: "Real-time crypto price tracker with live market data, portfolio view, and historical charts. First production React project.",
+        },
+      ],
+      githubBtn: "GitHub",
+      liveDemoBtn: "Live Demo",
+    },
+    skills: {
+      sectionLabel: "Skills & Tech Stack",
+    },
+    footer: {
+      sectionLabel: "Get in Touch",
+      headingPre: "LET'S TALK",
+      headingAccent: "ABOUT YOUR IDEA.",
+      desc: "Have a protocol to launch, a DeFi dashboard to build, or want to discuss tokenomics and incentive design? Let's connect and create something secure and powerful together.",
+      emailLabel: "Email Me",
+      githubLabel: "GitHub Profile",
+      locationLabel: "Location",
+      locationVal: "Indonesia",
+      form: {
+        nameLabel: "Name",
+        namePlaceholder: "Your name",
+        emailLabel: "Email",
+        emailPlaceholder: "your@email.com",
+        messageLabel: "Message",
+        messagePlaceholder: "What are you building?",
+        sendBtn: "SEND MESSAGE",
+      },
+      closingHeadingPre: "LET'S BUILD",
+      closingHeadingAccent: "ON-CHAIN.",
+      socialsLabel: "Socials",
+      contactLabel: "Contact",
+    },
+  },
+  id: {
+    nav: {
+      statusLine1: "Tersedia untuk",
+      statusLine2: "Kerja &",
+      statusLine3: "Freelance",
+      taglineLeft: "Ekonomi",
+      taglineRight: "Blockchain",
+      menu: {
+        about: "Tentang",
+        career: "Karier",
+        projects: "Proyek",
+        skills: "Keahlian",
+        contact: "Kontak",
+      },
+    },
+    hero: {
+      eyebrow: "Developer Web3 · Analitik DeFi · Indonesia",
+      taglineLine1: "Developer Web3",
+      taglineLine2: "berbasis di Indonesia",
+      cta: "Unduh CV",
+      scroll: "Gulir",
+    },
+    about: {
+      panel1: {
+        label: "— 01 — GAMBARAN EKSEKUTIF",
+        headingPre: "EKONOMI",
+        headingMid: "× KEPEMIMPINAN",
+        headingPost: "WEB3.",
+        accentPart: "post",
+        bioPre: "Saya ",
+        bioMid: ", dikenal secara online sebagai ",
+        bioPost: ". Lulusan Ekonomi (S1 Ekonomi Pembangunan, UNINGRAT Tual, Des 2025) dari Indonesia, yang beralih ke pengembangan Web3 secara otodidak sejak April 2026.",
+        bioSub: "Latar belakang Ekonomi saya bukan sekadar gelar karena itu membentuk cara saya berpikir tentang desain protokol, struktur insentif, dan analitik DeFi.",
+      },
+      panel2: {
+        label: "— 02 — MISI STRATEGIS",
+        headingPre: "MEMBANGUN",
+        headingAccent: "ON-CHAIN.",
+        headingPost: "ANALITIK DEFI.",
+        body: "Fokus strategis saya adalah membangun di persimpangan ekonomi protokol dan analitik on-chain. Saya mengembangkan dApp full-stack yang aman menggunakan Solidity dan React, serta membangun pipeline indexing mendalam untuk mengurai log blockchain mentah menjadi wawasan ekonomi yang terstruktur dan bernilai.",
+        valueCards: [
+          { title: "VERIFIKASI", desc: "Setiap smart contract diperiksa baris demi baris kemudian testing sebelum deploy, dengan ketelitian yang sama seperti menguji model regresi untuk kasus kompleks." },
+          { title: "BANGUN",     desc: "Dari SimpleBank hingga TronicLens, enam proyek live dirilis dalam tiga bulan, belajar otodidak dari nol sejak April 2026." },
+          { title: "ANALISIS",  desc: "Analitik DeFi bukan sekadar dashboard, melainkan cara membaca data on-chain layaknya ekonom membaca sinyal pasar." },
+        ],
+      },
+      panel3: {
+        label: "— 03 — REKAM JEJAK",
+        headingPre: "TERBUKTI",
+        headingAccent: "DENGAN KODE.",
+        verifiedBadge: "Terverifikasi",
+      },
+    },
+    stats: {
+      items: [
+        { label: "Test Ditulis",          sublabel: "Foundry · Cakupan 98%" },
+        { label: "Proyek Dirilis",        sublabel: "4 deployment live" },
+        { label: "Protokol Terintegrasi", sublabel: "The Graph · Chainlink · 0G" },
+        { label: "Kontrak Di-deploy",     sublabel: "Sepolia · terverifikasi on-chain" },
+      ],
+    },
+    journey: {
+      sectionLabel: "Karier & Pengalaman",
+      items: [
+        {
+          role: "Konten Kreator",
+          company: "YouTube & TikTok",
+          date: "2017 - 2024",
+          desc: "Aktif di YouTube & TikTok sebagai konten kreator.",
+        },
+        {
+          role: "S1 Ekonomi Pembangunan",
+          company: "UNINGRAT Tual",
+          date: "2021 - 2025",
+          desc: "Menempuh studi Ekonomi Pembangunan di Universitas Doktor Husni Ingratubun (UNINGRAT) Tual, Lulus 1 Desember 2025.",
+        },
+        {
+          role: "Analis & Trader Pasar",
+          company: "Otodidak",
+          date: "2025 - Mar 2026",
+          desc: "Fokus pada investasi dan trading independen di saham, cryptocurrency, dan komoditas.",
+        },
+        {
+          role: "Perjalanan Web Development & Web3",
+          company: "Belajar otodidak",
+          date: "Mar 2026 - Sekarang",
+          desc: "Mulai belajar web development dari nol (HTML, CSS, JavaScript, React). Kini membangun smart contract tingkat produksi dengan dokumentasi NatSpec, pola keamanan (ReentrancyGuard, CEI), testing Foundry, dan integrasi protokol DeFi (The Graph, Chainlink, 0G Storage, 0G Compute).",
+        },
+      ],
+    },
+    projectsIntro: {
+      sectionLabel: "Proyek",
+      titlePre: "PROYEK",
+      titleAccent: "TERPILIH",
+      desc: "Kumpulan proyek yang terus berkembang mulai dari hackathon hingga proyek klien masing-masing dibangun end-to-end, dari arsitektur sampai deployment.",
+    },
+    projects: {
+      items: [
+        {
+          title: "TRONICLENS: ON-CHAIN INTELLIGENCE",
+          desc: "Dashboard analitik DeFi full-stack yang mengindeks aktivitas on-chain Sepolia. Indexing subgraph via The Graph, price feed Chainlink, insight AI 0G (Qwen2.5 TEE), governance on-chain. Submission hackathon ETHOnline 2026.",
+        },
+        {
+          title: "DASHBOARD DEFI DENGAN DUNE API & SQL LOGS",
+          desc: "Dashboard analitik protokol didukung Dune API. Query SQL kustom mengurai log Sepolia mentah, pelacakan event staking live di dune.com/rikotronic.",
+        },
+        {
+          title: "CRYPTO TRACKER DENGAN DATA LIVE MARKET",
+          desc: "Pelacak harga crypto real-time dengan data live market, tampilan portfolio, dan grafik historis. Proyek React produksi pertama.",
+        },
+      ],
+      githubBtn: "GitHub",
+      liveDemoBtn: "Demo Langsung",
+    },
+    skills: {
+      sectionLabel: "KETERAMPILAN & TECH STACK",
+    },
+    footer: {
+      sectionLabel: "Hubungi Saya",
+      headingPre: "MARI BICARA",
+      headingAccent: "TENTANG IDE ANDA.",
+      desc: "Punya protokol yang mau diluncurkan, dashboard DeFi yang mau dibangun, atau ingin diskusi soal tokenomics dan desain insentif? Mari terhubung dan membangun sesuatu yang aman dan powerful bersama.",
+      emailLabel: "Email Saya",
+      githubLabel: "Profil GitHub",
+      locationLabel: "Lokasi",
+      locationVal: "Indonesia",
+      form: {
+        nameLabel: "Nama",
+        namePlaceholder: "Nama Anda",
+        emailLabel: "Email",
+        emailPlaceholder: "email@anda.com",
+        messageLabel: "Pesan",
+        messagePlaceholder: "Apa yang sedang Anda bangun?",
+        sendBtn: "KIRIM PESAN",
+      },
+      closingHeadingPre: "MARI MEMBANGUN",
+      closingHeadingAccent: "ON-CHAIN.",
+      socialsLabel: "Media Sosial",
+      contactLabel: "Kontak",
+    },
+  },
+} as const;

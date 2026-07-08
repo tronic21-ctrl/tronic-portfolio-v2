@@ -5,6 +5,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
 import dynamic from "next/dynamic";
 import IntroScreen from "./components/IntroScreen";
+import { translations, Lang } from "./translations";
 
 const ConstellationCanvas = dynamic(
   () => import("./components/ConstellationCanvas"),
@@ -15,31 +16,27 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ─── DATA ─── */
 const STATS = [
-  { num: 107, suffix: "",  label: "Tests Written",        sublabel: "Foundry · 98% coverage" },
-  { num: 6,   suffix: "",  label: "Projects Shipped",     sublabel: "4 live deployments" },
-  { num: 3,   suffix: "",  label: "Protocols Integrated", sublabel: "The Graph · Chainlink · 0G" },
-  { num: 7,   suffix: "",  label: "Contracts Deployed",   sublabel: "Sepolia · verified on-chain" },
-];
-
-const ABOUT_VALUE_CARDS = [
-  { title: "VERIFY",  desc: "Every smart contract checked line-by-line before mainnet, the same rigor as testing a regression model for edge cases." },
-  { title: "BUILD",   desc: "From SimpleBank to TronicLens, six live projects shipped in three months, self-taught from zero in April 2026." },
-  { title: "ANALYZE", desc: "DeFi analytics isn't just dashboards, it's reading on-chain data the way an economist reads market signals." },
+  { num: 107, suffix: "" },
+  { num: 6,   suffix: "" },
+  { num: 3,   suffix: "" },
+  { num: 7,   suffix: "" },
 ];
 
 const ABOUT_METRICS = [
   { num: 3,   label: "Months Self-Taught",       unit: " MONTHS", isPercent: false },
-  { num: 98,  label: "Test Coverage",            unit: "%",   isPercent: true },
+  { num: 107, label: "Tests Passing",            unit: "/107",    isPercent: false },
+  { num: 98,  label: "Line Coverage",            unit: "%",   isPercent: true },
   { num: 100, label: "Subgraph Synced",          unit: "%",   isPercent: true },
   { num: 3,   label: "Smart Contracts Verified", unit: "",    isPercent: false },
 ];
 
+/* NOTE: `title` and `desc` now live in translations.ts under
+   `projects.items[i]` (matched by array index), so they translate
+   per language. Everything else here is language-neutral data. */
 const PROJECTS = [
   {
     num: "01.",
-    title: "TRONICLENS: DEFI ANALYTICS DASHBOARD",
-    desc: "Full-stack DeFi analytics dashboard indexing on-chain Sepolia activity. Subgraph indexing via The Graph, Chainlink price feeds, 0G AI insights (Qwen2.5 TEE), on-chain governance. ETHOnline 2026 hackathon submission.",
-    tagsString: "The Graph - Chainlink - 0G Storage - 0G Compute - Solidity - React - Foundry ",
+    tagsString: "The Graph - Chainlink - 0G Storage - 0G Compute - Solidity - React - Foundry",
     pills: ["The Graph", "Chainlink", "0G", "2026"],
     link: "https://github.com/tronic21-ctrl/troniclens",
     live: "https://troniclens.vercel.app",
@@ -48,9 +45,7 @@ const PROJECTS = [
   },
   {
     num: "02.",
-    title: "DEFI DASHBOARD WITH DUNE API & SQL LOGS",
-    desc: "Protocol analytics dashboard powered by Dune API. Custom SQL queries decoding raw Sepolia logs, live staking event tracking at dune.com/rikotronic.",
-    tagsString: "Dune Analytics - React - Vite - Wagmi - Sepolia ",
+    tagsString: "Dune Analytics - React - Vite - Wagmi - Sepolia",
     pills: ["Dune API", "React", "Wagmi", "2026"],
     link: "https://github.com/tronic21-ctrl/defi-dashboard",
     live: "https://defi-dashboard-pi.vercel.app",
@@ -59,9 +54,7 @@ const PROJECTS = [
   },
   {
     num: "03.",
-    title: "CRYPTO TRACKER WITH LIVE MARKET DATA",
-    desc: "Real-time crypto price tracker with live market data, portfolio view, and historical charts. First production React project.",
-    tagsString: "React - Vite - CoinGecko API - CSS Grid ",
+    tagsString: "React - Vite - CoinGecko API - CSS Grid",
     pills: ["React", "CoinGecko", "Vite", "2025"],
     link: "https://github.com/tronic21-ctrl/crypto-tracker",
     live: "https://crypto-tracker-pi-silk.vercel.app",
@@ -119,32 +112,8 @@ const SKILLS: Skill[] = [
   { name:"Canva",          color:"#00c4cc", cat:"Economics",   level:"intermediate", img:"/Canva-logo.svg" },
 ];
 
-const JOURNEY = [
-  {
-    role: "Content Creator",
-    company: "YouTube & TikTok",
-    date: "2017 - 2024",
-    desc: "Active on YouTube & TikTok as a content creator.",
-  },
-  {
-    role: "B.Sc. Development Economics",
-    company: "UNINGRAT Tual",
-    date: "2021 - 2025",
-    desc: "Studied Development Economics at University of Doctor Husni Ingratubun (UNINGRAT) Tual. Graduated December 1, 2025.",
-  },
-  {
-    role: "Market Analyst & Trader",
-    company: "Independent",
-    date: "2025 - Mar 2026",
-    desc: "Focused on investment and trading independently across stocks, cryptocurrency, and commodities.",
-  },
-  {
-    role: "Web Development & Web3 Journey",
-    company: "Self-Directed",
-    date: "Mar 2026 - Present",
-    desc: "Started learning web development from scratch (HTML, CSS, JavaScript, React). Now building production-grade smart contracts with NatSpec documentation, security patterns (ReentrancyGuard, CEI), Foundry testing, and integrating DeFi protocols (The Graph, Chainlink, 0G Storage, 0G Compute).",
-  },
-];
+/* NOTE: JOURNEY data (role/company/date/desc) now lives fully in
+   translations.ts under `journey.items`, so it updates per language. */
 
 /* ─── SKILL ICON ─── */
 function SkillIcon({ skill }: { skill: Skill }) {
@@ -184,6 +153,19 @@ export default function Portfolio() {
 
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrollTopVisible, setScrollTopVisible] = useState(false);
+  const [lang, setLang] = useState<Lang>("en");
+
+  useLayoutEffect(() => {
+    const saved = localStorage.getItem("lang");
+    if (saved === "en" || saved === "id") setLang(saved);
+  }, []);
+
+  const setLangPersist = (next: Lang) => {
+    setLang(next);
+    localStorage.setItem("lang", next);
+  };
+
+  const t = translations[lang];
   const navRef = useRef<HTMLElement>(null);
   const heroEyebrowRef = useRef<HTMLDivElement>(null);
   const heroTaglineRef = useRef<HTMLParagraphElement>(null);
@@ -638,12 +620,12 @@ export default function Portfolio() {
             </a>
           </div>
           <div className="hero-nav-status">
-            <p>Available for<br />Work &amp;<br />Freelance</p>
+            <p>{t.nav.statusLine1}<br />{t.nav.statusLine2}<br />{t.nav.statusLine3}</p>
           </div>
           <div className="hero-nav-tagline">
-            <span className="hero-nav-tagline-gradient">Economics</span>
+            <span className="hero-nav-tagline-gradient">{t.nav.taglineLeft}</span>
             <span className="hero-nav-tagline-x"> × </span>
-            <span className="hero-nav-tagline-white">Blockchain</span>
+            <span className="hero-nav-tagline-white">{t.nav.taglineRight}</span>
           </div>
           <div className="hero-nav-burger">
             <button className="burger-btn" aria-label="Menu" onClick={() => setMenuOpen(!menuOpen)}>
@@ -659,12 +641,17 @@ export default function Portfolio() {
       {/* ── FULLSCREEN MENU ── */}
       <div className={`fullscreen-menu ${menuOpen ? "open" : ""}`}>
         <nav className="fullscreen-menu-nav">
-          <a href="#about"   className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>About</a>
-          <a href="#journey" className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>Career</a>
-          <a href="#work"    className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>Projects</a>
-          <a href="#skills"  className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>Skills</a>
-          <a href="#contact" className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>Contact</a>
+          <a href="#about"   className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>{t.nav.menu.about}</a>
+          <a href="#journey" className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>{t.nav.menu.career}</a>
+          <a href="#work"    className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>{t.nav.menu.projects}</a>
+          <a href="#skills"  className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>{t.nav.menu.skills}</a>
+          <a href="#contact" className="fullscreen-menu-link" onClick={() => setMenuOpen(false)}>{t.nav.menu.contact}</a>
         </nav>
+        <div className="lang-toggle">
+          <button className={lang === "en" ? "active" : ""} onClick={() => setLangPersist("en")}>EN</button>
+          <span className="lang-toggle-divider">/</span>
+          <button className={lang === "id" ? "active" : ""} onClick={() => setLangPersist("id")}>ID</button>
+        </div>
       </div>
 
       {/* ── HERO ── */}
@@ -715,7 +702,7 @@ export default function Portfolio() {
             {/* RIGHT COLUMN — Name + Title + CTA */}
             <div className="hero-col-right">
               <div className="hero-eyebrow" ref={heroEyebrowRef}>
-                Web3 Developer · DeFi Analytics · Indonesia
+                {t.hero.eyebrow}
               </div>
               <h1 className="hero-name">
                 <div className="hero-name-mask">
@@ -726,11 +713,11 @@ export default function Portfolio() {
                 </div>
               </h1>
               <p className="hero-tagline" ref={heroTaglineRef}>
-                Web3 Developer<br />based in Indonesia
+                {t.hero.taglineLine1}<br />{t.hero.taglineLine2}
               </p>
               <div className="hero-cta-wrap" ref={heroCtaRef}>
                 <a href="/CV_Demianus_Toatubun.pdf" target="_blank" rel="noreferrer" className="space-btn">
-                  <strong>DOWNLOAD CV</strong>
+                  <strong>{t.hero.cta.toUpperCase()}</strong>
                   <span className="space-btn-glow" />
                 </a>
               </div>
@@ -741,7 +728,7 @@ export default function Portfolio() {
             <svg width="16" height="24" viewBox="0 0 16 24" fill="none">
               <path d="M8 0v20M1 13l7 7 7-7" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
-            SCROLL
+            {t.hero.scroll.toUpperCase()}
           </div>
         </div>
       </section>
@@ -751,18 +738,18 @@ export default function Portfolio() {
         {/* Panel 01 — Executive Overview */}
         <section className="about-flow-section about-panel-base" aria-label="Executive Overview">
           <div className="about-flow-inner">
-            <div className="about-flow-label">— 01 — EXECUTIVE OVERVIEW</div>
+            <div className="about-flow-label">{t.about.panel1.label}</div>
             <h2 className="about-flow-heading">
-              ECONOMICS <span className="accent-word">× WEB3</span><br/>LEADERSHIP.
+              {t.about.panel1.headingPre}{" "}
+              <span className={t.about.panel1.accentPart === "mid" ? "accent-word" : undefined}>{t.about.panel1.headingMid}</span>
+              <br/>
+              <span className={t.about.panel1.accentPart === "post" ? "accent-word" : undefined}>{t.about.panel1.headingPost}</span>
             </h2>
             <p className="about-flow-body">
-              I&apos;m <strong>Riko Toatubun</strong> known online as <strong>Riko Tronic</strong>.
-              Fresh Economics graduate (S1 Ekonomi Pembangunan, UNINGRAT Tual, Dec 2025)
-              from Indonesia, self-directed into Web3 development in April 2026.
+              {t.about.panel1.bioPre}<strong>Riko Toatubun</strong>{t.about.panel1.bioMid}<strong>Riko Tronic</strong>{t.about.panel1.bioPost}
             </p>
             <p className="about-flow-body about-flow-body-sub">
-              My Economics background isn&apos;t just a credential it shapes how I think about
-              protocol design, incentive structures, and DeFi analytics.
+              {t.about.panel1.bioSub}
             </p>
           </div>
         </section>
@@ -770,19 +757,17 @@ export default function Portfolio() {
         {/* Panel 02 — Strategic Mission */}
         <section className="about-flow-section about-panel-invert" aria-label="Strategic Mission">
           <div className="about-flow-inner">
-            <div className="about-flow-label">— 02 — STRATEGIC MISSION</div>
+            <div className="about-flow-label">{t.about.panel2.label}</div>
             <h2 className="about-flow-heading">
-              BUILDING <span className="accent-word-dark">ON-CHAIN.</span><br/>DEFI ANALYTICS.
+              {t.about.panel2.headingPre} <span className="accent-word-dark" style={{ whiteSpace: "nowrap" }}>{t.about.panel2.headingAccent}</span>
             </h2>
             <p className="about-flow-body">
-              My strategic focus is building at the intersection of protocol economics and on-chain analytics. 
-              I develop secure full-stack dApps using Solidity and React, and construct deep indexing pipelines 
-              via The Graph to decode raw blockchain logs into structured, value-proven economic insights.
+              {t.about.panel2.body}
             </p>
             <div className="pipeline-flow">
               <div className="pipeline-track" />
               <div className="pipeline-flow-dot" />
-              {ABOUT_VALUE_CARDS.map((c) => (
+              {t.about.panel2.valueCards.map((c) => (
                 <div className="pipeline-node" key={c.title}>
                   <div className="pipeline-node-marker">
                     <svg viewBox="0 0 20 20" width="28" height="28">
@@ -802,9 +787,9 @@ export default function Portfolio() {
         {/* Panel 03 — Track Record */}
         <section className="about-flow-section about-panel-deep" aria-label="Track Record">
           <div className="about-flow-inner">
-            <div className="about-flow-label">— 03 — TRACK RECORD</div>
+            <div className="about-flow-label">{t.about.panel3.label}</div>
             <h2 className="about-flow-heading">
-              PROVEN <span className="accent-word">BY CODE.</span>
+              {t.about.panel3.headingPre} <span className="accent-word">{t.about.panel3.headingAccent}</span>
             </h2>
             <div className="about-stats-glass code-editor-container">
               <div className="code-editor-header">
@@ -819,7 +804,7 @@ export default function Portfolio() {
                     <span className="tab-name">proven_by_code.json</span>
                   </div>
                 </div>
-                <span className="about-stats-status">Verified</span>
+                <span className="about-stats-status">{t.about.panel3.verifiedBadge}</span>
               </div>
               <div className="code-editor-body">
                 <div className="code-line">
@@ -827,7 +812,7 @@ export default function Portfolio() {
                   <span className="code-token bracket">{"{"}</span>
                 </div>
                 
-                {/* Months Self-Taught */}
+                {/* Months Self-Taught — informational, no external proof to link */}
                 <div className="code-line">
                   <span className="line-number">02</span>
                   <span className="code-indent">  </span>
@@ -840,58 +825,95 @@ export default function Portfolio() {
                   <span className="code-token comment">{" // self-directed route in Web3"}</span>
                 </div>
 
-                {/* Test Coverage */}
-                <div className="code-line flex-wrap-bar">
-                  <div className="code-line-main">
-                    <span className="line-number">03</span>
-                    <span className="code-indent">  </span>
-                    <span className="code-token key">&quot;test_coverage&quot;</span>
-                    <span className="code-token colon">:</span>{" "}
-                    <span className="code-token string">&quot;</span>
-                    <span className="code-token number amn-1">0</span>
-                    <span className="code-token string">&quot;</span>
-                    <span className="code-token comma">,</span>
-                    <span className="code-token comment">{" // unit testing via Foundry"}</span>
-                  </div>
-                  <div className="code-inline-bar-wrapper">
-                    <div className="code-inline-bar-track">
-                      <div className="code-inline-bar-fill amb-1" />
-                    </div>
-                  </div>
-                </div>
+                {/* Tests Passing — links to the Foundry test repo */}
+                <a
+                  href="https://github.com/tronic21-ctrl/foundry-troniclens"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="code-line code-line-link"
+                >
+                  <span className="line-number">03</span>
+                  <span className="code-indent">  </span>
+                  <span className="code-token key">&quot;tests_passing&quot;</span>
+                  <span className="code-token colon">:</span>{" "}
+                  <span className="code-token string">&quot;</span>
+                  <span className="code-token number amn-1">0</span>
+                  <span className="code-token string">&quot;</span>
+                  <span className="code-token comma">,</span>
+                  <span className="code-token comment">{" // Foundry suite, all passing"}</span>
+                  <span className="code-line-arrow">↗</span>
+                </a>
 
-                {/* Subgraph Synced */}
-                <div className="code-line flex-wrap-bar">
+                {/* Line Coverage */}
+                <a
+                  href="https://github.com/tronic21-ctrl/foundry-troniclens"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="code-line code-line-link flex-wrap-bar"
+                >
                   <div className="code-line-main">
                     <span className="line-number">04</span>
                     <span className="code-indent">  </span>
-                    <span className="code-token key">&quot;subgraph_synced&quot;</span>
+                    <span className="code-token key">&quot;line_coverage&quot;</span>
                     <span className="code-token colon">:</span>{" "}
                     <span className="code-token string">&quot;</span>
                     <span className="code-token number amn-2">0</span>
                     <span className="code-token string">&quot;</span>
                     <span className="code-token comma">,</span>
-                    <span className="code-token comment">{" // indexing decentralized logs"}</span>
+                    <span className="code-token comment">{" // lines executed, Foundry"}</span>
+                    <span className="code-line-arrow">↗</span>
                   </div>
                   <div className="code-inline-bar-wrapper">
                     <div className="code-inline-bar-track">
                       <div className="code-inline-bar-fill amb-2" />
                     </div>
                   </div>
-                </div>
+                </a>
 
-                {/* Smart Contracts Verified */}
-                <div className="code-line">
-                  <span className="line-number">05</span>
+                {/* Subgraph Synced */}
+                <a
+                  href="https://thegraph.com/explorer/subgraphs/AbF6DWEE3iNwqVa3kyG9YyutLWYcvsNJQ7ihD6fztGNL?view=Query&chain=arbitrum-one"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="code-line code-line-link flex-wrap-bar"
+                >
+                  <div className="code-line-main">
+                    <span className="line-number">05</span>
+                    <span className="code-indent">  </span>
+                    <span className="code-token key">&quot;subgraph_synced&quot;</span>
+                    <span className="code-token colon">:</span>{" "}
+                    <span className="code-token string">&quot;</span>
+                    <span className="code-token number amn-3">0</span>
+                    <span className="code-token string">&quot;</span>
+                    <span className="code-token comma">,</span>
+                    <span className="code-token comment">{" // indexing decentralized logs"}</span>
+                    <span className="code-line-arrow">↗</span>
+                  </div>
+                  <div className="code-inline-bar-wrapper">
+                    <div className="code-inline-bar-track">
+                      <div className="code-inline-bar-fill amb-3" />
+                    </div>
+                  </div>
+                </a>
+
+                {/* Smart Contracts Verified — links to a verified Sepolia contract */}
+                <a
+                  href="https://eth-sepolia.blockscout.com/address/0x89907e8F6CB6468b2c8fe2d3814249881eF06926"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="code-line code-line-link"
+                >
+                  <span className="line-number">06</span>
                   <span className="code-indent">  </span>
                   <span className="code-token key">&quot;verified_contracts&quot;</span>
                   <span className="code-token colon">:</span>{" "}
-                  <span className="code-token number amn-3">0</span>
+                  <span className="code-token number amn-4">0</span>
                   <span className="code-token comment">{" // Sepolia contracts deployed"}</span>
-                </div>
+                  <span className="code-line-arrow">↗</span>
+                </a>
 
                 <div className="code-line">
-                  <span className="line-number">06</span>
+                  <span className="line-number">07</span>
                   <span className="code-token bracket">{"}"}</span>
                 </div>
               </div>
@@ -906,8 +928,8 @@ export default function Portfolio() {
           {STATS.map((s, i) => (
             <div className="stat-item" key={i}>
               <div className={`stat-number sn-${i}`}>0{s.suffix}</div>
-              <div className="stat-label">{s.label}</div>
-              <div className="stat-sublabel">{s.sublabel}</div>
+              <div className="stat-label">{t.stats.items[i].label}</div>
+              <div className="stat-sublabel">{t.stats.items[i].sublabel}</div>
             </div>
           ))}
         </div>
@@ -917,7 +939,7 @@ export default function Portfolio() {
       <section className="journey-section" id="journey">
         <div className="section-label reveal-up" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_7s_linear_infinite]" style={{ color: 'var(--text-muted)' }}><path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7"/></svg>
-          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>Career & Experience</span>
+          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>{t.journey.sectionLabel}</span>
         </div>
 
         <div className="journey-container">
@@ -927,7 +949,7 @@ export default function Portfolio() {
             </div>
           </div>
 
-          {JOURNEY.map((item, i) => (
+          {t.journey.items.map((item, i) => (
             <div className="journey-item-box" key={i} data-journey-index={i}>
               {/* Desktop layout: split columns */}
               <div className="journey-desktop-row">
@@ -965,14 +987,14 @@ export default function Portfolio() {
         <div className="intro-container">
           <div className="section-label reveal-up" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_7s_linear_infinite]" style={{ color: 'var(--text-muted)' }}><path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7"/></svg>
-            <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>Projects</span>
+            <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>{t.projectsIntro.sectionLabel}</span>
           </div>
           <div className="intro-main">
             <h2 className="intro-title">
-              SELECTED <span className="purple-gradient-text">PROJECTS</span> / <span className="projects-count">( {PROJECTS.length} )</span>
+              {t.projectsIntro.titlePre} <span className="purple-gradient-text">{t.projectsIntro.titleAccent}</span> / <span className="projects-count">( {PROJECTS.length} )</span>
             </h2>
             <p className="intro-desc">
-              Self-directed builds shipped from zero to mainnet in three months — each one a step in learning Web3 by actually building it.
+              {t.projectsIntro.desc}
             </p>
           </div>
         </div>
@@ -996,19 +1018,19 @@ export default function Portfolio() {
               </div>
 
               {/* Project Title */}
-              <h3 className="project-row-title">{p.title}</h3>
+              <h3 className="project-row-title">{t.projects.items[i].title}</h3>
               
               {/* Project Description */}
-              <p className="project-row-desc">{p.desc}</p>
+              <p className="project-row-desc">{t.projects.items[i].desc}</p>
               
               {/* Project Actions */}
               <div className="project-row-actions">
                 <a href={p.link} target="_blank" rel="noreferrer" className="project-btn project-btn-secondary">
-                  GitHub <span className="project-btn-arrow">↗</span>
+                  {t.projects.githubBtn} <span className="project-btn-arrow">↗</span>
                 </a>
                 {p.live !== "#" && (
                   <a href={p.live} target="_blank" rel="noreferrer" className="project-btn project-btn-primary">
-                    Live Demo <span className="project-btn-arrow">↗</span>
+                    {t.projects.liveDemoBtn} <span className="project-btn-arrow">↗</span>
                   </a>
                 )}
               </div>
@@ -1017,11 +1039,11 @@ export default function Portfolio() {
               <div className="mockup-perspective-wrapper">
                 <div className="mockup-card-primary">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.imgMain} alt={`${p.title} Desktop`} className="mockup-img" />
+                  <img src={p.imgMain} alt={`${t.projects.items[i].title} Desktop`} className="mockup-img" />
                 </div>
                 <div className="mockup-card-secondary" data-y-offset="-20">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.imgSub} alt={`${p.title} Mobile`} className="mockup-img" />
+                  <img src={p.imgSub} alt={`${t.projects.items[i].title} Mobile`} className="mockup-img" />
                 </div>
               </div>
             </div>
@@ -1074,7 +1096,7 @@ export default function Portfolio() {
       <section className="skills-section" id="skills">
         <div className="section-label reveal-up" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_7s_linear_infinite]" style={{ color: 'var(--text-muted)' }}><path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7"/></svg>
-          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>Skills &amp; Stack</span>
+          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>{t.skills.sectionLabel}</span>
         </div>
 
         <div className="skills-container-v2">
@@ -1103,7 +1125,7 @@ export default function Portfolio() {
       <section className="footer-section" id="contact">
         <div className="section-label reveal-up" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '4rem' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_7s_linear_infinite]" style={{ color: 'var(--text-muted)' }}><path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7"/></svg>
-          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>Get in Touch</span>
+          <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>{t.footer.sectionLabel}</span>
         </div>
 
         <div className="footer-contact-grid">
@@ -1112,11 +1134,11 @@ export default function Portfolio() {
           </div>
           <div className="contact-details-side">
             <h2 className="contact-heading reveal-up">
-              LET&apos;S TALK<br />
-              <span className="accent-word">ABOUT YOUR IDEA.</span>
+              {t.footer.headingPre}<br />
+              <span className="accent-word">{t.footer.headingAccent}</span>
             </h2>
             <p className="contact-desc reveal-up">
-              Have a protocol to launch, a DeFi dashboard to build, or want to discuss tokenomics and incentive design? Let&apos;s connect and create something secure and powerful together.
+              {t.footer.desc}
             </p>
             
             <div className="contact-info-list reveal-up">
@@ -1127,7 +1149,7 @@ export default function Portfolio() {
                   </svg>
                 </div>
                 <div className="contact-info-text">
-                  <span className="contact-info-label">Email Me</span>
+                  <span className="contact-info-label">{t.footer.emailLabel}</span>
                   <a href="mailto:rikotronic.dev@gmail.com" className="contact-info-val-link">rikotronic.dev@gmail.com</a>
                 </div>
               </div>
@@ -1139,7 +1161,7 @@ export default function Portfolio() {
                   </svg>
                 </div>
                 <div className="contact-info-text">
-                  <span className="contact-info-label">GitHub Profile</span>
+                  <span className="contact-info-label">{t.footer.githubLabel}</span>
                   <a href="https://github.com/tronic21-ctrl" target="_blank" rel="noreferrer" className="contact-info-val-link">github.com/tronic21-ctrl</a>
                 </div>
               </div>
@@ -1152,8 +1174,8 @@ export default function Portfolio() {
                   </svg>
                 </div>
                 <div className="contact-info-text">
-                  <span className="contact-info-label">Location</span>
-                  <span className="contact-info-val">Indonesia</span>
+                  <span className="contact-info-label">{t.footer.locationLabel}</span>
+                  <span className="contact-info-val">{t.footer.locationVal}</span>
                 </div>
               </div>
             </div>
@@ -1162,19 +1184,19 @@ export default function Portfolio() {
           <div className="contact-form-side reveal-up">
             <form action="https://formspree.io/f/mwvznanb" method="POST">
               <div className="contact-form-group">
-                <label>Name</label>
-                <input type="text" name="name" placeholder="Your name" required />
+                <label>{t.footer.form.nameLabel}</label>
+                <input type="text" name="name" placeholder={t.footer.form.namePlaceholder} required />
               </div>
               <div className="contact-form-group">
-                <label>Email</label>
-                <input type="email" name="email" placeholder="your@email.com" required />
+                <label>{t.footer.form.emailLabel}</label>
+                <input type="email" name="email" placeholder={t.footer.form.emailPlaceholder} required />
               </div>
               <div className="contact-form-group">
-                <label>Message</label>
-                <textarea name="message" rows={5} placeholder="What are you building?" required />
+                <label>{t.footer.form.messageLabel}</label>
+                <textarea name="message" rows={5} placeholder={t.footer.form.messagePlaceholder} required />
               </div>
               <button type="submit" className="space-btn" style={{ width: "100%", marginTop: "1rem" }}>
-                <strong>SEND MESSAGE</strong>
+                <strong>{t.footer.form.sendBtn}</strong>
                 <span className="space-btn-glow" />
               </button>
             </form>
@@ -1195,16 +1217,16 @@ export default function Portfolio() {
         <div className="footer-closing">
           <div className="footer-closing-left">
             <h3 className="footer-closing-heading">
-              LET&apos;S BUILD<br /><span className="accent-word">ON-CHAIN.</span>
+              {t.footer.closingHeadingPre}<br /><span className="accent-word" style={{ whiteSpace: "nowrap" }}>{t.footer.closingHeadingAccent}</span>
             </h3>
             <a href="/CV_Demianus_Toatubun.pdf" target="_blank" rel="noreferrer" className="space-btn">
-              <strong>DOWNLOAD CV</strong>
+              <strong>{t.hero.cta.toUpperCase()}</strong>
               <span className="space-btn-glow" />
             </a>
           </div>
           <div className="footer-closing-right">
             <div className="footer-closing-block">
-              <span className="footer-closing-label">Socials</span>
+              <span className="footer-closing-label">{t.footer.socialsLabel}</span>
               <div className="footer-closing-icons">
                 <a href="https://github.com/tronic21-ctrl" target="_blank" rel="noreferrer" aria-label="GitHub">
                   <svg viewBox="0 0 496 512" fill="currentColor" width="18" height="18"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg>
@@ -1218,7 +1240,7 @@ export default function Portfolio() {
               </div>
             </div>
             <div className="footer-closing-block">
-              <span className="footer-closing-label">Contact</span>
+              <span className="footer-closing-label">{t.footer.contactLabel}</span>
               <a href="mailto:rikotronic.dev@gmail.com" className="footer-closing-email">rikotronic.dev@gmail.com</a>
             </div>
           </div>
