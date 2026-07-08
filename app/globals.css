@@ -2459,6 +2459,14 @@ a.code-line-link:hover .code-line-arrow {
   }
   .code-editor-body {
     padding: 1.25rem 1rem;
+    font-size: 0.72rem;
+    overflow-x: hidden;
+  }
+  .code-editor-dots {
+    display: none;
+  }
+  .code-token.comment {
+    display: none;
   }
   .code-inline-bar-wrapper {
     margin-left: 2.75rem;
