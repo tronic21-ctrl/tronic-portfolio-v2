@@ -87,11 +87,9 @@ const SKILLS: Skill[] = [
   { name:"Framer Motion",  color:"#0055ff", cat:"Frontend",    level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="#0055ff"><path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/></svg> },
   // Blockchain / Web3
   { name:"Solidity",       color:"#627eea", cat:"Blockchain",  level:"intermediate", img:"https://cdn.simpleicons.org/solidity/627eea" },
-  { name:"Ethereum",       color:"#627eea", cat:"Blockchain",  level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="#627eea"><path d="M11.944 17.97L4.58 13.62 11.943 24l7.37-10.38-7.372 4.35h.003zM12.056 0L4.69 12.223l7.365 4.354 7.365-4.35L12.056 0z"/></svg> },
-  { name:"DeFi",           color:"#10b981", cat:"Blockchain",  level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.66 3.58 3 8 3s8-1.34 8-3V6"/><path d="M4 12v6c0 1.66 3.58 3 8 3s8-1.34 8-3v-6"/></svg> },
-  { name:"Smart Contract\nSecurity", color:"#f43f5e", cat:"Blockchain", level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#f43f5e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> },
-  { name:"Foundry",        color:"#38bdf8", cat:"Blockchain",  level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M5 18h14"/><path d="M7 18v-3a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v3"/><path d="M9 13V9a3 3 0 0 1 6 0v4"/><path d="M12 6V3"/><path d="M9 3h6"/></svg> },
+  { name:"Foundry",        color:"#38bdf8", cat:"Blockchain",  level:"intermediate", img: "/foundry-logo.png" },
   { name:"Hardhat",        color:"#fff100", cat:"Blockchain",  level:"beginner",     img: "/hardhat.svg" },
+  { name:"OpenZeppelin",   color:"#4f56fa", cat:"Blockchain",  level:"intermediate", img: "/openzeppelin-logo.svg" },
   // Protocols
   { name:"The Graph",      color:"#38bdf8", cat:"Protocols",   level:"intermediate", img: "/thegraph-logo.svg" },
   { name:"Chainlink",      color:"#375bd2", cat:"Protocols",   level:"intermediate", img:"https://cdn.simpleicons.org/chainlink/375bd2" },

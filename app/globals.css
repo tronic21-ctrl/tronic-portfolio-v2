@@ -2398,6 +2398,17 @@ a.code-line-link:hover .code-line-arrow {
   .fullscreen-menu-link {
     font-size: clamp(2.5rem, 8vw, 4rem);
   }
+  /* Nav tagline ("ECONOMICS × BLOCKCHAIN") was overflowing on narrow
+     phones because flex:1 items don't shrink below their content
+     width by default — min-width:0 fixes that, plus a smaller floor. */
+  .hero-nav-tagline {
+    font-size: clamp(0.58rem, 3vw, 1.2rem);
+    min-width: 0;
+    letter-spacing: 0.02em;
+  }
+  .hero-nav-tagline-x {
+    margin: 0 0.3rem;
+  }
   /* Proven-by-code proof rows — no hover on touch, so make the
      tap affordance always visible instead of hover-only */
   .code-line-arrow {
