@@ -841,7 +841,13 @@ export default function Portfolio() {
                   <span className="code-token string">&quot;</span>
                   <span className="code-token comma">,</span>
                   <span className="code-token comment">{" // Foundry suite, all passing"}</span>
-                  <span className="code-line-arrow">↗</span>
+                  <span className="code-line-arrow">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </span>
                 </a>
 
                 {/* Line Coverage */}
@@ -861,7 +867,13 @@ export default function Portfolio() {
                     <span className="code-token string">&quot;</span>
                     <span className="code-token comma">,</span>
                     <span className="code-token comment">{" // lines executed, Foundry"}</span>
-                    <span className="code-line-arrow">↗</span>
+                    <span className="code-line-arrow">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="code-inline-bar-wrapper">
                     <div className="code-inline-bar-track">
@@ -887,7 +899,13 @@ export default function Portfolio() {
                     <span className="code-token string">&quot;</span>
                     <span className="code-token comma">,</span>
                     <span className="code-token comment">{" // indexing decentralized logs"}</span>
-                    <span className="code-line-arrow">↗</span>
+                    <span className="code-line-arrow">
+                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                        <polyline points="15 3 21 3 21 9" />
+                        <line x1="10" y1="14" x2="21" y2="3" />
+                      </svg>
+                    </span>
                   </div>
                   <div className="code-inline-bar-wrapper">
                     <div className="code-inline-bar-track">
@@ -909,7 +927,13 @@ export default function Portfolio() {
                   <span className="code-token colon">:</span>{" "}
                   <span className="code-token number amn-4">0</span>
                   <span className="code-token comment">{" // Sepolia contracts deployed"}</span>
-                  <span className="code-line-arrow">↗</span>
+                  <span className="code-line-arrow">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </span>
                 </a>
 
                 <div className="code-line">

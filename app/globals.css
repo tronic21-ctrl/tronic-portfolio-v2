@@ -1826,6 +1826,10 @@ a.code-line-link:hover .code-token.key {
   font-size: 0.85em;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
+.code-line-arrow svg {
+  width: 13px;
+  height: 13px;
+}
 a.code-line-link:hover .code-line-arrow {
   opacity: 1;
   transform: translate(2px, -2px);
@@ -2396,16 +2400,12 @@ a.code-line-link:hover .code-line-arrow {
   }
   /* Proven-by-code proof rows — no hover on touch, so make the
      tap affordance always visible instead of hover-only */
-  a.code-line-link {
-    background: rgba(56, 189, 248, 0.055);
-    border-left: 2px solid rgba(56, 189, 248, 0.35);
-    padding-left: 0.5rem;
-  }
   .code-line-arrow {
-    opacity: 0.55;
+    opacity: 0.8;
   }
-  a.code-line-link:active {
-    background: rgba(56, 189, 248, 0.14);
+  .code-line-arrow svg {
+    width: 15px;
+    height: 15px;
   }
   a.code-line-link:active .code-line-arrow {
     opacity: 1;
@@ -2446,16 +2446,11 @@ a.code-line-link:hover .code-line-arrow {
   }
   .pipeline-node-marker { top: 0; left: 0; transform: none; }
   .code-editor-header {
-    flex-wrap: wrap;
     padding: 0.75rem 1rem;
   }
   .code-editor-tabs {
     position: static !important;
     transform: none !important;
-    order: 3;
-    width: 100%;
-    margin-top: 0.5rem;
-    justify-content: center;
   }
   .code-editor-body {
     padding: 1.25rem 1rem;
