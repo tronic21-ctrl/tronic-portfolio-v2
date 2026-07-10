@@ -107,7 +107,9 @@ const SKILLS: Skill[] = [
   { name:"SPSS",           color:"#10b981", cat:"Economics",   level:"intermediate", img:"/spss-logo.png" },
   { name:"EViews",         color:"#f59e0b", cat:"Economics",   level:"intermediate", img:"/eviews-logo.png" },
   { name:"MS Office",      color:"#d83b01", cat:"Economics",   level:"intermediate", img:"/msoffice-logo.png" },
-  { name:"Canva",          color:"#00c4cc", cat:"Economics",   level:"intermediate", img:"/Canva-logo.svg" },
+  // Editing
+  { name:"Canva",          color:"#00c4cc", cat:"Editing",     level:"intermediate", img:"/Canva-logo.svg" },
+  { name:"Photoshop",      color:"#31a8ff", cat:"Editing",     level:"intermediate", img:"/photoshop-logo.svg" },
 ];
 
 /* NOTE: JOURNEY data (role/company/date/desc) now lives fully in
@@ -479,21 +481,33 @@ export default function Portfolio() {
         wrapper.addEventListener("mouseleave", onMouseLeaveTilt);
       });
 
-      // Skills section — staggered row reveal (label fade-in is handled by
-      // the generic .reveal-up batch above, since .section-label has that class)
-      gsap.utils.toArray<HTMLElement>(".skills-row-v2").forEach((row) => {
-        const cat = row.querySelector(".skills-row-cat");
-        const pills = row.querySelectorAll(".skill-pill-v2");
-        gsap.fromTo(cat,
-          { opacity: 0, x: -30 },
-          { opacity: 1, x: 0, duration: 0.7, ease: "power2.out",
-            scrollTrigger: { trigger: row, start: "top 80%" } }
-        );
-        gsap.fromTo(pills,
-          { opacity: 0, y: 20 },
-          { opacity: 1, y: 0, duration: 0.5, stagger: 0.04, ease: "power2.out",
-            scrollTrigger: { trigger: row, start: "top 80%" }, delay: 0.15 }
-        );
+      // Skills section — repeating fade-up / fade-down that plays every time
+      // an element crosses the section (not just once). Each text/logo item
+      // (section label, category names, skill pills) is scrubbed directly to
+      // scroll position: it fades+slides in from below as it enters, holds,
+      // then fades+slides out upward as it leaves — and because it's a scrub
+      // tween, scrolling back up naturally reverses the same motion (fades
+      // in from the top edge, then fades out downward), consistently on
+      // every pass through the section.
+      gsap.utils.toArray<HTMLElement>(
+        "#skills .skills-fade-item, #skills .skills-row-cat, #skills .skill-pill-v2"
+      ).forEach((el) => {
+        gsap.timeline({
+          scrollTrigger: {
+            trigger: el,
+            start: "top 92%",
+            end: "top 8%",
+            scrub: 0.4,
+          },
+        })
+          .fromTo(el,
+            { opacity: 0, y: 50 },
+            { opacity: 1, y: 0, duration: 0.4, ease: "power1.out" }
+          )
+          .to(el,
+            { opacity: 0, y: -50, duration: 0.4, ease: "power1.in" },
+            0.6
+          );
       });
 
       // Journey: single tracking dot + progress line
@@ -1100,13 +1114,13 @@ export default function Portfolio() {
 
       {/* ── SKILLS ── */}
       <section className="skills-section" id="skills">
-        <div className="section-label reveal-up" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
+        <div className="section-label skills-fade-item" style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '2.5rem' }}>
           <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-[spin_7s_linear_infinite]" style={{ color: 'var(--text-muted)' }}><path d="M12 2v20M17 5l-10 14M22 12H2M19 17L5 7"/></svg>
           <span style={{ fontSize: '1rem', fontWeight: 600, letterSpacing: '0.05em', color: 'var(--text-main)', textTransform: 'uppercase' }}>{t.skills.sectionLabel}</span>
         </div>
 
         <div className="skills-container-v2">
-          {(["Frontend", "Blockchain", "Protocols", "Economics"] as const).map((cat) => {
+          {(["Frontend", "Blockchain", "Protocols", "Economics", "Editing"] as const).map((cat) => {
             const catSkills = SKILLS.filter(s => s.cat === cat);
             return (
               <div className="skills-row-v2" key={cat}>
