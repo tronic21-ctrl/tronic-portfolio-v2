@@ -1044,8 +1044,13 @@ export default function Portfolio() {
 
                   <div className="project-stack-info">
                     <div className="project-meta-tags">
-                      {p.tagsString.split(" - ").join(" / ")}
-                      <span className="project-meta-year">— {p.pills[p.pills.length - 1]}</span>
+                      {p.pills.slice(0, -1).map((tag) => (
+                        <React.Fragment key={tag}>
+                          <span className="project-tag-text">{tag}</span>
+                          <span className="project-tag-dot" aria-hidden="true">·</span>
+                        </React.Fragment>
+                      ))}
+                      <span className="project-tag-year">{p.pills[p.pills.length - 1]}</span>
                     </div>
 
                     <h3 className="project-row-title">{t.projects.items[i].title}</h3>

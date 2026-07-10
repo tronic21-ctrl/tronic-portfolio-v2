@@ -965,7 +965,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 0 6vw;
+  padding: 5rem 6vw 0;
 }
 
 .project-stack-card {
@@ -1043,16 +1043,31 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
 }
 
 .project-meta-tags {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(0.7rem, 1.1vw, 0.8rem);
-  color: var(--text-muted);
-  letter-spacing: 0.04em;
-  margin-bottom: 1.4rem;
-  text-transform: uppercase;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.45rem;
+  margin-bottom: 1.6rem;
 }
-.project-meta-year {
+.project-tag-text {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.project-tag-dot {
+  color: rgba(255, 255, 255, 0.25);
+  font-size: 0.9rem;
+  line-height: 1;
+}
+.project-tag-year {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
   color: var(--accent);
-  margin-left: 0.5rem;
 }
 .project-row-title {
   font-size: clamp(1.7rem, 3vw, 2.5rem);
