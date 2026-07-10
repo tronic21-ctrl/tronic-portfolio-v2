@@ -2454,6 +2454,32 @@ a.code-line-link:hover .code-line-arrow {
 
 /* ─── MOBILE ─── */
 @media (max-width:768px) {
+  /* Project card action buttons — shrink to fit narrow cards so
+     the row never forces overflow and every card stays the same size */
+  .project-row-actions {
+    gap: 0.6rem;
+  }
+  .project-btn-icon {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 8px;
+  }
+  .project-btn-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+  .project-btn-live {
+    height: 2.25rem;
+    padding: 0 1rem;
+    font-size: 0.75rem;
+    border-radius: 8px;
+    gap: 0.4rem;
+  }
+  .project-btn-live .project-btn-arrow svg {
+    width: 12px;
+    height: 12px;
+  }
+
   /* Fullscreen Menu Mobile Overrides */
   .fullscreen-menu {
     padding-top: 0;
