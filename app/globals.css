@@ -935,67 +935,119 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   max-width: 680px;
 }
 
-/* ─── PROJECTS LIST ─── */
-.projects-list-section {
-  padding: 0 5% 6rem;
+/* ─── PROJECTS STACK — horizontal pinned scroll, all breakpoints ─── */
+.projects-stack-section {
+  padding: 0;
   background: var(--bg-deep);
+  overflow: hidden;
 }
-.project-item-row {
-  display: flex;
-  flex-direction: column;
+.projects-stack-viewport {
   position: relative;
-  width: 100%;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 8rem 0;
-  border-bottom: 1px solid var(--border);
+  max-width: none;
+  margin: 0;
+  padding: 0;
 }
-@media (min-width: 769px) {
-  .project-item-row {
-    flex-direction: row;
-    min-height: 110vh;
-    padding: 10rem 0;
-  }
+/* dvh (not vh) so the track/card height stays put when a mobile browser's
+   address bar shows/hides mid-scroll, instead of jumping and fighting the
+   GSAP-driven pin. */
+.projects-h-track {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  width: max-content;
+  height: 100dvh;
+  padding: 0;
 }
-.project-sticky-left {
-  width: 100%;
-  margin-bottom: 2rem;
+.project-stack-card-wrap {
+  position: relative;
+  width: 100vw;
+  height: 100dvh;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  padding: 0 6vw;
 }
-@media (min-width: 769px) {
-  .project-sticky-left {
-    width: 30%;
-    position: sticky;
-    top: 20vh;
-    align-self: flex-start;
-    margin-bottom: 0;
-  }
-}
-.project-row-number {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: clamp(4.5rem, 8vw, 7.5rem);
-  font-weight: 700;
-  line-height: 1;
-  color: var(--text-main);
-  letter-spacing: -0.03em;
-}
-.project-scroll-right {
+
+.project-stack-card {
+  position: static;
+  min-height: 78vh;
+  max-height: 100%;
   width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
+  padding: 4rem 4.5rem;
+  border-radius: 24px;
+  background: linear-gradient(160deg, rgba(15, 26, 46, 0.97), rgba(6, 13, 26, 0.99));
+  border: 1px solid var(--border);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+  overflow-x: hidden;
+  overflow-y: auto; /* safety net if content runs taller than the card on short/narrow screens */
+  will-change: transform;
 }
-@media (min-width: 769px) {
-  .project-scroll-right {
-    width: 70%;
-    padding-left: 2rem;
+.project-stack-inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  z-index: 2;
+  gap: 2rem;
+}
+@media (min-width: 900px) {
+  .project-stack-inner {
+    flex-direction: row;
+    align-items: center;
+    gap: 3.5rem;
   }
 }
+
+/* Big faint outlined numeral sitting behind the content */
+.project-stack-ghost-num {
+  position: absolute;
+  top: -3.5rem;
+  right: -0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(8rem, 20vw, 18rem);
+  font-weight: 800;
+  line-height: 1;
+  color: rgba(226, 232, 240, 0.1);
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.project-stack-visual {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}
+@media (min-width: 900px) {
+  .project-stack-visual {
+    width: 55%;
+    order: 2;
+  }
+}
+.project-stack-visual .mockup-perspective-wrapper {
+  margin-top: 0;
+}
+
+.project-stack-info {
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+@media (min-width: 900px) {
+  .project-stack-info {
+    width: 45%;
+    order: 1;
+  }
+}
+
 .project-meta-tags {
   font-family: 'JetBrains Mono', monospace;
   font-size: clamp(0.7rem, 1.1vw, 0.8rem);
   color: var(--text-muted);
   letter-spacing: 0.04em;
-  margin-bottom: 1.8rem;
+  margin-bottom: 1.4rem;
   text-transform: uppercase;
 }
 .project-meta-year {
@@ -1003,30 +1055,24 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   margin-left: 0.5rem;
 }
 .project-row-title {
-  font-size: clamp(1.8rem, 3.8vw, 3rem);
+  font-size: clamp(1.7rem, 3vw, 2.5rem);
   font-weight: 800;
-  line-height: 1.1;
+  line-height: 1.15;
   color: var(--text-main);
   letter-spacing: -0.01em;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1.25rem;
   text-transform: uppercase;
 }
 .project-row-desc {
-  font-size: clamp(0.85rem, 1.4vw, 0.98rem);
-  line-height: 1.85;
+  font-size: clamp(0.85rem, 1.2vw, 0.95rem);
+  line-height: 1.8;
   color: var(--text-muted);
-  max-width: 620px;
-  margin-bottom: 2.5rem;
-}
-.project-row-actions {
-  display: flex;
-  gap: 1rem;
+  max-width: 480px;
   margin-bottom: 2rem;
 }
 .project-row-actions {
   display: flex;
   gap: 1.25rem;
-  margin-bottom: 2.5rem;
   align-items: center;
 }
 .project-btn {
@@ -1802,6 +1848,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   flex-direction: column;
   align-items: flex-start;
 }
+
 /* Clickable proof rows in the "proven_by_code" panel */
 a.code-line-link {
   text-decoration: none;
@@ -1823,7 +1870,8 @@ a.code-line-link:hover .code-token.key {
   opacity: 0;
   margin-left: 0.5rem;
   color: var(--accent);
-  font-size: 0.85em;
+  display: inline-flex;
+  align-items: center;
   transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .code-line-arrow svg {
@@ -2398,6 +2446,7 @@ a.code-line-link:hover .code-line-arrow {
   .fullscreen-menu-link {
     font-size: clamp(2.5rem, 8vw, 4rem);
   }
+
   /* Nav tagline ("ECONOMICS × BLOCKCHAIN") was overflowing on narrow
      phones because flex:1 items don't shrink below their content
      width by default — min-width:0 fixes that, plus a smaller floor. */
@@ -2409,8 +2458,10 @@ a.code-line-link:hover .code-line-arrow {
   .hero-nav-tagline-x {
     margin: 0 0.3rem;
   }
+
   /* Proven-by-code proof rows — no hover on touch, so make the
-     tap affordance always visible instead of hover-only */
+     icon itself always visible (more prominent) instead of hover-only.
+     No background/border here — keeps line-number column aligned. */
   .code-line-arrow {
     opacity: 0.8;
   }
@@ -2579,24 +2630,23 @@ a.code-line-link:hover .code-line-arrow {
     font-size: 0.95rem;
   }
 
-  /* Mobile Projects List */
-  .projects-list-section {
-    padding: 0 1.5rem 4rem;
+  /* Mobile Projects Stack — same horizontal track as desktop now, just
+     tighter spacing to fit a narrow 100vw card comfortably */
+  .projects-stack-viewport {
+    padding: 0;
   }
-  .project-item-row {
-    padding: 4rem 0;
-    gap: 1.5rem;
+  .project-stack-card-wrap {
+    padding: 0 4vw;
   }
-  .project-sticky-left {
-    position: relative;
-    top: 0;
-    margin-bottom: 0;
+  .project-stack-card {
+    min-height: 70vh;
+    padding: 2rem 1.5rem;
+    border-radius: 18px;
   }
-  .project-row-number {
-    font-size: 3.5rem;
-  }
-  .project-scroll-right {
-    padding-left: 0;
+  .project-stack-ghost-num {
+    font-size: 6rem;
+    top: -1.5rem;
+    right: -0.25rem;
   }
   .project-meta-tags {
     margin-bottom: 1rem;
@@ -2607,11 +2657,12 @@ a.code-line-link:hover .code-line-arrow {
   }
   .project-row-desc {
     margin-bottom: 1.75rem;
+    max-width: 100%;
   }
   
   /* Mobile 3D Perspective Mockups */
   .mockup-perspective-wrapper {
-    margin-top: 2rem;
+    margin-top: 0;
     aspect-ratio: 16/10;
   }
   .mockup-card-primary {
@@ -2637,7 +2688,7 @@ body { background: var(--bg-deep); }
 
 .stats-section      { background: rgba(6, 13, 26, 0.97); }
 .journey-section    { background: rgba(6, 13, 26, 0.95); }
-.projects-section-intro, .projects-list-section { background: rgba(6, 13, 26, 0.95); }
+.projects-section-intro, .projects-stack-section { background: rgba(6, 13, 26, 0.95); }
 .marquee-section    { background: rgba(6, 13, 26, 0.95); }
 .skills-section     { background: rgba(6, 13, 26, 0.95); }
 .footer-section     { background: rgba(6, 13, 26, 0.97); }

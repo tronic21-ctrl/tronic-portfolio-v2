@@ -90,6 +90,7 @@ const SKILLS: Skill[] = [
   { name:"Foundry",        color:"#38bdf8", cat:"Blockchain",  level:"intermediate", img: "/foundry-logo.png" },
   { name:"Hardhat",        color:"#fff100", cat:"Blockchain",  level:"beginner",     img: "/hardhat.svg" },
   { name:"OpenZeppelin",   color:"#4f56fa", cat:"Blockchain",  level:"intermediate", img: "/openzeppelin-logo.svg" },
+  { name:"Slither",        color:"#a01028", cat:"Blockchain",  level:"intermediate", img: "/slither-logo.png" },
   // Protocols
   { name:"The Graph",      color:"#38bdf8", cat:"Protocols",   level:"intermediate", img: "/thegraph-logo.svg" },
   { name:"Chainlink",      color:"#375bd2", cat:"Protocols",   level:"intermediate", img:"https://cdn.simpleicons.org/chainlink/375bd2" },
@@ -102,11 +103,10 @@ const SKILLS: Skill[] = [
   { name:"Reown AppKit", color:"#38bdf8", cat:"Frontend", level:"intermediate", img: "/reown-icon-light.svg" },
   { name:"RainbowKit",     color:"#7c3aed", cat:"Frontend",    level:"intermediate", img: "/rainbowkit-logo.svg" },
   // Economics
-  { name:"Market Analysis",color:"#38bdf8", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg> },
-  { name:"Economics",      color:"#818cf8", cat:"Economics",   level:"advanced",     svg: <svg viewBox="0 0 24 24" fill="none" stroke="#818cf8" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg> },
-  { name:"SPSS",           color:"#10b981", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg> },
-  { name:"EViews",         color:"#f59e0b", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none" stroke="#f59e0b" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 3v18h18"/><path d="M7 16l4-8 4 8"/><path d="M9 12h4"/></svg> },
-  { name:"MS Office",      color:"#d83b01", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="#d83b01"><path d="M21.18 3H14l-2 2H5.82A2.82 2.82 0 0 0 3 7.82v8.36A2.82 2.82 0 0 0 5.82 19H14l2-2h5.18A2.82 2.82 0 0 0 24 14.18V5.82A2.82 2.82 0 0 0 21.18 3zM14 17H5.82A.82.82 0 0 1 5 16.18V7.82A.82.82 0 0 1 5.82 7H12l2 2v8zm8-2.82a.82.82 0 0 1-.82.82H16V9l-2-2h-2V5h8.18a.82.82 0 0 1 .82.82v8.36z"/></svg> },
+  { name:"Market Analysis",color:"#38bdf8", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="3" x2="4" y2="19" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="2.2" y="8" width="3.6" height="6" fill="#38bdf8"/><line x1="12" y1="2" x2="12" y2="20" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="10.2" y="5" width="3.6" height="9" fill="#38bdf8"/><line x1="20" y1="6" x2="20" y2="21" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="18.2" y="11" width="3.6" height="5" fill="#38bdf8"/></svg> },
+  { name:"SPSS",           color:"#10b981", cat:"Economics",   level:"intermediate", img:"/spss-logo.png" },
+  { name:"EViews",         color:"#f59e0b", cat:"Economics",   level:"intermediate", img:"/eviews-logo.png" },
+  { name:"MS Office",      color:"#d83b01", cat:"Economics",   level:"intermediate", img:"/msoffice-logo.png" },
   { name:"Canva",          color:"#00c4cc", cat:"Economics",   level:"intermediate", img:"/Canva-logo.svg" },
 ];
 
@@ -394,55 +394,42 @@ export default function Portfolio() {
         }
       );
 
-      // Project rows animations
-      PROJECTS.forEach((_, idx) => {
-        const row = document.querySelector(`#project-${idx}`) as HTMLElement;
-        if (!row) return;
+      // Horizontal scroll through project cards — now enabled on ALL
+      // breakpoints, including mobile.
+      //
+      // NOTE: this project already uses Lenis for smooth scroll (synced to
+      // ScrollTrigger via lenis.on("scroll", ScrollTrigger.update) above).
+      // ScrollTrigger.normalizeScroll() is GSAP's own scroll-virtualization
+      // fix for mobile — but since Lenis is already virtualizing scroll,
+      // stacking normalizeScroll on top of it means two systems fighting
+      // for control of the same touch input, which is a well-documented
+      // source of mobile jank. So we deliberately do NOT call it here.
+      // Instead we use mitigations that don't conflict with Lenis:
+      //  1. ignoreMobileResize — stops ScrollTrigger re-measuring (and
+      //     snapping the pin) every time the address bar shows/hides.
+      //  2. anticipatePin — smooths the moment the pin engages.
+      //  3. 100dvh sizing in CSS (not 100vh) — so card/track height stays
+      //     stable across that same address-bar resize, instead of jumping.
+      ScrollTrigger.config({ ignoreMobileResize: true });
 
-        // Reveal content on enter
-        gsap.fromTo(row.querySelectorAll(".project-sticky-left, .project-scroll-right > :not(.mockup-perspective-wrapper)"),
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power2.out",
-            scrollTrigger: { trigger: row, start: "top 85%" }
+      const track = document.querySelector(".projects-h-track") as HTMLElement;
+      const section = document.querySelector(".projects-stack-section") as HTMLElement;
+      if (track && section) {
+        const getScrollDistance = () => track.scrollWidth - window.innerWidth;
+        gsap.to(track, {
+          x: () => -getScrollDistance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: section,
+            start: "top top",
+            end: () => `+=${getScrollDistance()}`,
+            pin: true,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true
           }
-        );
-
-        // Reveal mockup wrapper
-        gsap.fromTo(row.querySelector(".mockup-perspective-wrapper"),
-          { opacity: 0, y: 60, scale: 0.95 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 1.0,
-            ease: "power2.out",
-            scrollTrigger: { trigger: row, start: "top 75%" }
-          }
-        );
-
-        // Parallax scroll on secondary mockup
-        const secondary = row.querySelector(".mockup-card-secondary") as HTMLElement;
-        if (secondary) {
-          gsap.fromTo(secondary,
-            { y: 30 },
-            {
-              y: -50,
-              ease: "none",
-              scrollTrigger: {
-                trigger: row,
-                start: "top bottom",
-                end: "bottom top",
-                scrub: 1
-              }
-            }
-          );
-        }
-      });
+        });
+      }
 
       // 3D Hover Tilt Effect
       const wrappers = document.querySelectorAll(".mockup-perspective-wrapper");
@@ -866,12 +853,12 @@ export default function Portfolio() {
                     <span className="code-token comma">,</span>
                     <span className="code-token comment">{" // lines executed, Foundry"}</span>
                     <span className="code-line-arrow">
-                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </span>
                   </div>
                   <div className="code-inline-bar-wrapper">
                     <div className="code-inline-bar-track">
@@ -898,12 +885,12 @@ export default function Portfolio() {
                     <span className="code-token comma">,</span>
                     <span className="code-token comment">{" // indexing decentralized logs"}</span>
                     <span className="code-line-arrow">
-                      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
-                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                        <polyline points="15 3 21 3 21 9" />
-                        <line x1="10" y1="14" x2="21" y2="3" />
-                      </svg>
-                    </span>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                      <polyline points="15 3 21 3 21 9" />
+                      <line x1="10" y1="14" x2="21" y2="3" />
+                    </svg>
+                  </span>
                   </div>
                   <div className="code-inline-bar-wrapper">
                     <div className="code-inline-bar-track">
@@ -1022,56 +1009,61 @@ export default function Portfolio() {
         </div>
       </section>
 
-      {/* ── PROJECTS LIST ── */}
-      <section className="projects-list-section">
-        {PROJECTS.map((p, i) => (
-          <div className="project-item-row" key={p.num} id={`project-${i}`}>
-            {/* Sticky left column containing project index number */}
-            <div className="project-sticky-left">
-              <span className="project-row-number">{p.num}</span>
-            </div>
-            
-            {/* Right column containing details and mockups */}
-            <div className="project-scroll-right">
-              {/* Project Meta */}
-              <div className="project-meta-tags">
-                {p.tagsString.split(" - ").join(" / ")}
-                <span className="project-meta-year">— {p.pills[p.pills.length - 1]}</span>
-              </div>
+      {/* ── PROJECTS STACK ── */}
+      <section className="projects-stack-section">
+        <div className="projects-stack-viewport projects-h-track">
+          {PROJECTS.map((p, i) => (
+            <div
+              className="project-stack-card-wrap"
+              key={p.num}
+              id={`project-${i}`}
+              data-index={i}
+            >
+              <div className="project-stack-card" style={{ zIndex: i + 1 }}>
+                <div className="project-stack-inner">
+                  <span className="project-stack-ghost-num">{p.num.replace(".", "")}</span>
 
-              {/* Project Title */}
-              <h3 className="project-row-title">{t.projects.items[i].title}</h3>
-              
-              {/* Project Description */}
-              <p className="project-row-desc">{t.projects.items[i].desc}</p>
-              
-              {/* Project Actions */}
-              <div className="project-row-actions">
-                <a href={p.link} target="_blank" rel="noreferrer" className="project-btn project-btn-secondary">
-                  {t.projects.githubBtn} <span className="project-btn-arrow">↗</span>
-                </a>
-                {p.live !== "#" && (
-                  <a href={p.live} target="_blank" rel="noreferrer" className="project-btn project-btn-primary">
-                    {t.projects.liveDemoBtn} <span className="project-btn-arrow">↗</span>
-                  </a>
-                )}
-              </div>
+                  <div className="project-stack-visual">
+                    <div className="mockup-perspective-wrapper">
+                      <div className="mockup-card-primary">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={p.imgMain} alt={`${t.projects.items[i].title} Desktop`} className="mockup-img" />
+                      </div>
+                      <div className="mockup-card-secondary" data-y-offset="-20">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img src={p.imgSub} alt={`${t.projects.items[i].title} Mobile`} className="mockup-img" />
+                      </div>
+                    </div>
+                  </div>
 
-              {/* 3D Perspective Mockup Showcase */}
-              <div className="mockup-perspective-wrapper">
-                <div className="mockup-card-primary">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.imgMain} alt={`${t.projects.items[i].title} Desktop`} className="mockup-img" />
-                </div>
-                <div className="mockup-card-secondary" data-y-offset="-20">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.imgSub} alt={`${t.projects.items[i].title} Mobile`} className="mockup-img" />
+                  <div className="project-stack-info">
+                    <div className="project-meta-tags">
+                      {p.tagsString.split(" - ").join(" / ")}
+                      <span className="project-meta-year">— {p.pills[p.pills.length - 1]}</span>
+                    </div>
+
+                    <h3 className="project-row-title">{t.projects.items[i].title}</h3>
+
+                    <p className="project-row-desc">{t.projects.items[i].desc}</p>
+
+                    <div className="project-row-actions">
+                      <a href={p.link} target="_blank" rel="noreferrer" className="project-btn project-btn-secondary">
+                        {t.projects.githubBtn} <span className="project-btn-arrow">↗</span>
+                      </a>
+                      {p.live !== "#" && (
+                        <a href={p.live} target="_blank" rel="noreferrer" className="project-btn project-btn-primary">
+                          {t.projects.liveDemoBtn} <span className="project-btn-arrow">↗</span>
+                        </a>
+                      )}
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </section>
+
 
 
       {/* ── STACK MARQUEE ── */}
