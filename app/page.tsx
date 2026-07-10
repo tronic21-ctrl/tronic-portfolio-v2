@@ -350,27 +350,6 @@ export default function Portfolio() {
         );
       });
 
-      // Skills & Stack — scroll fade per baris kategori
-      gsap.utils.toArray<HTMLElement>(".skills-row-v2").forEach((row) => {
-        const targets = row.querySelectorAll(".skills-row-cat, .skill-pill-v2");
-        gsap.fromTo(targets,
-          { opacity: 0, y: 40 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.6,
-            ease: "power2.out",
-            stagger: 0.05,
-            scrollTrigger: {
-              trigger: row,
-              start: "top 85%",
-              end: "bottom 15%",
-              toggleActions: "play reverse play reverse",
-            }
-          }
-        );
-      });
-
       // Selected Projects Section Intro Reveal
       gsap.fromTo(".projects-section-intro .intro-title",
         { opacity: 0, y: 30 },
@@ -411,6 +390,19 @@ export default function Portfolio() {
       //  3. 100dvh sizing in CSS (not 100vh) — so card/track height stays
       //     stable across that same address-bar resize, instead of jumping.
       ScrollTrigger.config({ ignoreMobileResize: true });
+
+      // One-time refresh once every image has actually finished loading —
+      // makes sure every ScrollTrigger on the page (this one and all the
+      // others below it) is measured against the FINAL layout, not
+      // whatever was on screen the instant this effect ran.
+      const refreshOnceReady = () => {
+        if (document.readyState === "complete") {
+          ScrollTrigger.refresh();
+        } else {
+          window.addEventListener("load", () => ScrollTrigger.refresh(), { once: true });
+        }
+      };
+      requestAnimationFrame(() => requestAnimationFrame(refreshOnceReady));
 
       const track = document.querySelector(".projects-h-track") as HTMLElement;
       const section = document.querySelector(".projects-stack-section") as HTMLElement;

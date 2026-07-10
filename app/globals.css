@@ -2631,33 +2631,37 @@ a.code-line-link:hover .code-line-arrow {
   }
 
   /* Mobile Projects Stack — same horizontal track as desktop now, just
-     tighter spacing to fit a narrow 100vw card comfortably */
+     tighter spacing to fit a narrow 100vw card comfortably. Top padding
+     on the wrap clears the fixed .hero-header (~header height + margin)
+     so the card no longer centers itself partly underneath it. */
   .projects-stack-viewport {
     padding: 0;
   }
   .project-stack-card-wrap {
-    padding: 0 4vw;
+    padding: 7rem 4vw 1.5rem;
   }
   .project-stack-card {
-    min-height: 70vh;
-    padding: 2rem 1.5rem;
+    min-height: 0;
+    padding: 1.5rem 1.25rem;
     border-radius: 18px;
   }
   .project-stack-ghost-num {
-    font-size: 6rem;
-    top: -1.5rem;
+    font-size: 5rem;
+    top: -1.25rem;
     right: -0.25rem;
   }
   .project-meta-tags {
     margin-bottom: 1rem;
   }
   .project-row-title {
-    font-size: clamp(1.5rem, 6vw, 2rem);
-    margin-bottom: 1rem;
+    font-size: clamp(1.25rem, 5.5vw, 1.6rem);
+    margin-bottom: 0.85rem;
   }
   .project-row-desc {
-    margin-bottom: 1.75rem;
+    margin-bottom: 1.5rem;
     max-width: 100%;
+    font-size: 0.85rem;
+    line-height: 1.65;
   }
   
   /* Mobile 3D Perspective Mockups */
