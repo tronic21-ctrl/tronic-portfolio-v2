@@ -935,8 +935,8 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   max-width: 680px;
 }
 
-/* ─── PROJECTS STACK — horizontal pinned scroll, all breakpoints ─── */
 .projects-stack-section {
+  position: relative;
   padding: 0;
   background: var(--bg-deep);
   overflow: hidden;
@@ -965,7 +965,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 5rem 6vw 0;
+  padding: 2rem 6vw 5rem;
 }
 
 .project-stack-card {
@@ -976,10 +976,6 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   display: flex;
   align-items: center;
   padding: 4rem 4.5rem;
-  border-radius: 24px;
-  background: linear-gradient(160deg, rgba(15, 26, 46, 0.97), rgba(6, 13, 26, 0.99));
-  border: 1px solid var(--border);
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
   overflow-x: hidden;
   overflow-y: auto; /* safety net if content runs taller than the card on short/narrow screens */
   will-change: transform;
@@ -1004,15 +1000,52 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
 .project-stack-ghost-num {
   position: absolute;
   top: -3.5rem;
-  right: -0.5rem;
+  left: -0.5rem; /* Moved to left */
   font-family: 'Space Grotesk', sans-serif;
   font-size: clamp(8rem, 20vw, 18rem);
   font-weight: 800;
   line-height: 1;
-  color: rgba(226, 232, 240, 0.1);
-  z-index: 0;
+  color: rgba(226, 232, 240, 0.04);
+  z-index: -1;
   pointer-events: none;
   user-select: none;
+}
+
+/* ── Global Progress Footer ── */
+.global-progress-footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100vw;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  padding: 0 6vw;
+  z-index: 10;
+  pointer-events: none;
+}
+.global-progress-num {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.15);
+  margin-right: 2rem;
+  line-height: 1;
+  width: 3.5rem;
+}
+.global-progress-track {
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.05);
+  position: relative;
+}
+.global-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--accent);
 }
 
 .project-stack-visual {

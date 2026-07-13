@@ -408,8 +408,13 @@ export default function Portfolio() {
 
       const track = document.querySelector(".projects-h-track") as HTMLElement;
       const section = document.querySelector(".projects-stack-section") as HTMLElement;
+      const progressFill = document.querySelector(".global-progress-fill") as HTMLElement;
+      const progressNum = document.querySelector(".global-progress-num") as HTMLElement;
+
       if (track && section) {
         const getScrollDistance = () => track.scrollWidth - window.innerWidth;
+        const totalSlides = document.querySelectorAll(".project-stack-card-wrap").length;
+
         gsap.to(track, {
           x: () => -getScrollDistance(),
           ease: "none",
@@ -420,7 +425,28 @@ export default function Portfolio() {
             pin: true,
             scrub: 1,
             anticipatePin: 1,
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              if (progressFill) progressFill.style.width = `${self.progress * 100}%`;
+              if (progressNum && totalSlides > 0) {
+                let currentIndex = Math.floor(self.progress * totalSlides);
+                if (currentIndex >= totalSlides) currentIndex = totalSlides - 1;
+                
+                const currentActive = parseInt(progressNum.getAttribute("data-active") || "0", 10);
+                if (currentIndex !== currentActive) {
+                  progressNum.setAttribute("data-active", currentIndex.toString());
+                  gsap.to(progressNum, {
+                    y: -10,
+                    opacity: 0,
+                    duration: 0.15,
+                    onComplete: () => {
+                      progressNum.textContent = `0${currentIndex + 1}`;
+                      gsap.fromTo(progressNum, { y: 10, opacity: 0 }, { y: 0, opacity: 1, duration: 0.15 });
+                    }
+                  });
+                }
+              }
+            }
           }
         });
       }
@@ -1079,6 +1105,14 @@ export default function Portfolio() {
               </div>
             </div>
           ))}
+        </div>
+
+        {/* Global Progress Footer */}
+        <div className="global-progress-footer">
+          <div className="global-progress-num" data-active="0">01</div>
+          <div className="global-progress-track">
+            <div className="global-progress-fill"></div>
+          </div>
         </div>
       </section>
 
