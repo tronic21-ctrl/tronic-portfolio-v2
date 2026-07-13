@@ -965,7 +965,7 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 1rem 5vw 7rem;
+  padding: 1rem 5vw 10rem;
 }
 @media (min-width: 900px) {
   .project-stack-card-wrap {
