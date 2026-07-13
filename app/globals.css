@@ -955,17 +955,22 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   flex-direction: row;
   flex-wrap: nowrap;
   width: max-content;
-  height: 100dvh;
+  height: 100svh;
   padding: 0;
 }
 .project-stack-card-wrap {
   position: relative;
   width: 100vw;
-  height: 100dvh;
+  height: 100svh;
   flex-shrink: 0;
   display: flex;
   align-items: center;
-  padding: 2rem 6vw 5rem;
+  padding: 1rem 5vw 7rem;
+}
+@media (min-width: 900px) {
+  .project-stack-card-wrap {
+    padding: 2rem 6vw 5rem;
+  }
 }
 
 .project-stack-card {
@@ -975,10 +980,15 @@ h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; }
   width: 100%;
   display: flex;
   align-items: center;
-  padding: 4rem 4.5rem;
+  padding: 1rem 1rem;
   overflow-x: hidden;
   overflow-y: auto; /* safety net if content runs taller than the card on short/narrow screens */
   will-change: transform;
+}
+@media (min-width: 900px) {
+  .project-stack-card {
+    padding: 4rem 4.5rem;
+  }
 }
 .project-stack-inner {
   position: relative;
