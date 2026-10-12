@@ -16,26 +16,47 @@ gsap.registerPlugin(ScrollTrigger);
 
 /* ─── DATA ─── */
 const STATS = [
-  { num: 107, suffix: "" },
-  { num: 6,   suffix: "" },
-  { num: 3,   suffix: "" },
-  { num: 7,   suffix: "" },
+  { num: 129, suffix: "" },
+  { num: 5,   suffix: "" },
+  { num: 4,   suffix: "" },
+  { num: 9,   suffix: "" },
 ];
 
+// Calendar months since April 2026 (month index 3), so it never goes stale.
+const MONTHS_SELF_TAUGHT = (() => {
+  const now = new Date();
+  return Math.max(1, (now.getFullYear() - 2026) * 12 + (now.getMonth() - 3));
+})();
+
+// Optional proof link per Journey item, by index (language-neutral).
+const JOURNEY_LINKS: Record<number, { href: string; label: { en: string; id: string } }> = {
+  4: { href: "/certificate-web3-workshop.pdf", label: { en: "View certificate", id: "Lihat sertifikat" } },
+  5: { href: "https://bansoschain.vercel.app", label: { en: "View live project", id: "Lihat proyek live" } },
+};
+
 const ABOUT_METRICS = [
-  { num: 3,   label: "Months Self-Taught",       unit: " MONTHS", isPercent: false },
-  { num: 107, label: "Tests Passing",            unit: "/107",    isPercent: false },
-  { num: 98,  label: "Line Coverage",            unit: "%",   isPercent: true },
-  { num: 100, label: "Subgraph Synced",          unit: "%",   isPercent: true },
-  { num: 3,   label: "Smart Contracts Verified", unit: "",    isPercent: false },
+  { num: MONTHS_SELF_TAUGHT, label: "Months Self-Taught",          unit: " MONTHS", isPercent: false },
+  { num: 22,  label: "Tests Passing (BanSOSChain)", unit: "/22", isPercent: false },
+  { num: 100, label: "Line Coverage (BanSOSChain)", unit: "%",   isPercent: true },
+  { num: 98,  label: "Line Coverage (TronicLens)",  unit: "%",   isPercent: true },
+  { num: 2,   label: "Smart Contracts Verified",    unit: "",    isPercent: false },
 ];
 
 /* NOTE: `title` and `desc` now live in translations.ts under
    `projects.items[i]` (matched by array index), so they translate
    per language. Everything else here is language-neutral data. */
 const PROJECTS = [
-  {
+    {
     num: "01.",
+    tagsString: "Solidity - Foundry - Next.js - Ponder - Gemini - Reown AppKit - BNB Chain Testnet",
+    pills: ["Solidity", "Ponder", "Gemini", "2026"],
+    link: "https://github.com/tronic21-ctrl/bansoschain",
+    live: "https://bansoschain.vercel.app",
+    imgMain: "/bansoschain-overview.png",
+    imgSub: "/bansoschain-mobile.png"
+  },
+  {
+    num: "02.",
     tagsString: "The Graph - Chainlink - 0G Storage - 0G Compute - Solidity - React - Foundry",
     pills: ["The Graph", "Chainlink", "0G", "2026"],
     link: "https://github.com/tronic21-ctrl/troniclens",
@@ -44,7 +65,7 @@ const PROJECTS = [
     imgSub: "/troniclens-staking.png"
   },
   {
-    num: "02.",
+    num: "03.",
     tagsString: "Dune Analytics - React - Vite - Wagmi - Sepolia",
     pills: ["Dune API", "React", "Wagmi", "2026"],
     link: "https://github.com/tronic21-ctrl/defi-dashboard",
@@ -53,7 +74,7 @@ const PROJECTS = [
     imgSub: "/defi-connect.png"
   },
   {
-    num: "03.",
+    num: "04.",
     tagsString: "React - Vite - CoinGecko API - CSS Grid",
     pills: ["React", "CoinGecko", "Vite", "2025"],
     link: "https://github.com/tronic21-ctrl/crypto-tracker",
@@ -87,6 +108,7 @@ const SKILLS: Skill[] = [
   { name:"Framer Motion",  color:"#0055ff", cat:"Frontend",    level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="#0055ff"><path d="M4 0h16v8h-8zM4 8h8l8 8H4zM4 16h8v8z"/></svg> },
   // Blockchain / Web3
   { name:"Solidity",       color:"#627eea", cat:"Blockchain",  level:"intermediate", img:"https://cdn.simpleicons.org/solidity/627eea" },
+  { name:"BNB Chain",      color:"#f0b90b", cat:"Blockchain",  level:"intermediate", img: "/bnb-chain-logo.png" },
   { name:"Foundry",        color:"#38bdf8", cat:"Blockchain",  level:"intermediate", img: "/foundry-logo.png" },
   { name:"Hardhat",        color:"#fff100", cat:"Blockchain",  level:"beginner",     img: "/hardhat.svg" },
   { name:"OpenZeppelin",   color:"#4f56fa", cat:"Blockchain",  level:"intermediate", img: "/openzeppelin-logo.svg" },
@@ -100,8 +122,9 @@ const SKILLS: Skill[] = [
   { name:"Dune Analytics", color:"#ff5e00", cat:"Protocols",   level:"intermediate", img: "/dune-logo.svg", tintDark: true },
   { name:"Wagmi",          color:"#38bdf8", cat:"Frontend",    level:"intermediate", img: "/wagmi-logo.svg", tintDark: true },
   { name:"viem",           color:"#fbbf24", cat:"Frontend",    level:"intermediate", img: "/viem-logo.svg", tintDark: true },
-  { name:"Reown AppKit", color:"#38bdf8", cat:"Frontend", level:"intermediate", img: "/reown-icon-light.svg" },
+  { name:"Reown AppKit",   color:"#38bdf8", cat:"Frontend",    level:"intermediate", img: "/reown-icon-light.svg" },
   { name:"RainbowKit",     color:"#7c3aed", cat:"Frontend",    level:"intermediate", img: "/rainbowkit-logo.svg" },
+  { name:"Ponder",         color:"#fbbf24", cat:"Protocols",   level:"intermediate", img: "/ponder-logo.png" },
   // Economics
   { name:"Market Analysis",color:"#38bdf8", cat:"Economics",   level:"intermediate", svg: <svg viewBox="0 0 24 24" fill="none"><line x1="4" y1="3" x2="4" y2="19" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="2.2" y="8" width="3.6" height="6" fill="#38bdf8"/><line x1="12" y1="2" x2="12" y2="20" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="10.2" y="5" width="3.6" height="9" fill="#38bdf8"/><line x1="20" y1="6" x2="20" y2="21" stroke="#38bdf8" strokeWidth="1.8" strokeLinecap="round"/><rect x="18.2" y="11" width="3.6" height="5" fill="#38bdf8"/></svg> },
   { name:"SPSS",           color:"#10b981", cat:"Economics",   level:"intermediate", img:"/spss-logo.png" },
@@ -844,7 +867,7 @@ export default function Portfolio() {
 
                 {/* Tests Passing — links to the Foundry test repo */}
                 <a
-                  href="https://github.com/tronic21-ctrl/foundry-troniclens"
+                  href="https://github.com/tronic21-ctrl/bansoschain"
                   target="_blank"
                   rel="noreferrer"
                   className="code-line code-line-link"
@@ -857,7 +880,7 @@ export default function Portfolio() {
                   <span className="code-token number amn-1">0</span>
                   <span className="code-token string">&quot;</span>
                   <span className="code-token comma">,</span>
-                  <span className="code-token comment">{" // Foundry suite, all passing"}</span>
+                  <span className="code-token comment">{" // BanSOSChain, Foundry, all passing"}</span>
                   <span className="code-line-arrow">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -869,7 +892,7 @@ export default function Portfolio() {
 
                 {/* Line Coverage */}
                 <a
-                  href="https://github.com/tronic21-ctrl/foundry-troniclens"
+                  href="https://github.com/tronic21-ctrl/bansoschain"
                   target="_blank"
                   rel="noreferrer"
                   className="code-line code-line-link flex-wrap-bar"
@@ -883,7 +906,7 @@ export default function Portfolio() {
                     <span className="code-token number amn-2">0</span>
                     <span className="code-token string">&quot;</span>
                     <span className="code-token comma">,</span>
-                    <span className="code-token comment">{" // lines executed, Foundry"}</span>
+                    <span className="code-token comment">{" // BanSOSChain contracts, Foundry"}</span>
                     <span className="code-line-arrow">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -901,7 +924,7 @@ export default function Portfolio() {
 
                 {/* Subgraph Synced */}
                 <a
-                  href="https://thegraph.com/explorer/subgraphs/AbF6DWEE3iNwqVa3kyG9YyutLWYcvsNJQ7ihD6fztGNL?view=Query&chain=arbitrum-one"
+                  href="https://github.com/tronic21-ctrl/foundry-troniclens"
                   target="_blank"
                   rel="noreferrer"
                   className="code-line code-line-link flex-wrap-bar"
@@ -909,13 +932,13 @@ export default function Portfolio() {
                   <div className="code-line-main">
                     <span className="line-number">05</span>
                     <span className="code-indent">  </span>
-                    <span className="code-token key">&quot;subgraph_synced&quot;</span>
+                    <span className="code-token key">&quot;troniclens_coverage&quot;</span>
                     <span className="code-token colon">:</span>{" "}
                     <span className="code-token string">&quot;</span>
                     <span className="code-token number amn-3">0</span>
                     <span className="code-token string">&quot;</span>
                     <span className="code-token comma">,</span>
-                    <span className="code-token comment">{" // indexing decentralized logs"}</span>
+                    <span className="code-token comment">{" // TronicLens, Foundry"}</span>
                     <span className="code-line-arrow">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -933,7 +956,7 @@ export default function Portfolio() {
 
                 {/* Smart Contracts Verified — links to a verified Sepolia contract */}
                 <a
-                  href="https://eth-sepolia.blockscout.com/address/0x89907e8F6CB6468b2c8fe2d3814249881eF06926"
+                  href="https://testnet.bscscan.com/address/0x58Cb1E7Cc9C5812afb586E77c72bc452D3a528BC"
                   target="_blank"
                   rel="noreferrer"
                   className="code-line code-line-link"
@@ -943,7 +966,7 @@ export default function Portfolio() {
                   <span className="code-token key">&quot;verified_contracts&quot;</span>
                   <span className="code-token colon">:</span>{" "}
                   <span className="code-token number amn-4">0</span>
-                  <span className="code-token comment">{" // Sepolia contracts deployed"}</span>
+                  <span className="code-token comment">{" // BanSOSChain, BscScan Testnet"}</span>
                   <span className="code-line-arrow">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
                       <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
@@ -1006,6 +1029,11 @@ export default function Portfolio() {
                 
                 <div className="journey-desc-side">
                   <p className="journey-desc">{item.desc}</p>
+                    {JOURNEY_LINKS[i] && (
+                      <a className="project-btn-live journey-cta" href={JOURNEY_LINKS[i].href} target="_blank" rel="noopener noreferrer">
+                        {JOURNEY_LINKS[i].label[lang]}<span className="project-btn-arrow">↗</span>
+                      </a>
+                    )}
                 </div>
               </div>
 
@@ -1017,6 +1045,11 @@ export default function Portfolio() {
                   <h3 className="journey-date">{item.date}</h3>
                 </div>
                 <p className="journey-desc">{item.desc}</p>
+                  {JOURNEY_LINKS[i] && (
+                    <a className="project-btn-live journey-cta" href={JOURNEY_LINKS[i].href} target="_blank" rel="noopener noreferrer">
+                      {JOURNEY_LINKS[i].label[lang]}<span className="project-btn-arrow">↗</span>
+                    </a>
+                  )}
               </div>
             </div>
           ))}

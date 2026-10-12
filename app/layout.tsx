@@ -6,10 +6,10 @@ export const metadata: Metadata = {
   verification: {
     google: "uy8E8rrZMYLlMd3kgT1ZGvlRkaR2PJOUUSnCWSnnjK4",
   },
-  description: "...",
+  description: "Riko Tronic is a Web3 developer from Indonesia building DeFi analytics and on-chain tooling. Featured project: BanSOSChain, a public audit trail for social aid disbursement.",
   openGraph: {
     title: "Riko Tronic",
-    description: "...",
+    description: "Riko Tronic is a Web3 developer from Indonesia building DeFi analytics and on-chain tooling. Featured project: BanSOSChain, a public audit trail for social aid disbursement.",
     type: "website",
     url: "https://rikotronic.vercel.app",
     images: [
@@ -17,14 +17,14 @@ export const metadata: Metadata = {
         url: "https://rikotronic.vercel.app/og-image.png",
         width: 1200,
         height: 630,
-        alt: "Riko Tronic — Web3 Developer",
+        alt: "Riko Tronic - Web3 Developer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Riko Tronic",
-    description: "...",
+    description: "Riko Tronic is a Web3 developer from Indonesia building DeFi analytics and on-chain tooling. Featured project: BanSOSChain, a public audit trail for social aid disbursement.",
     images: ["https://rikotronic.vercel.app/og-image.png"],
   },
 };

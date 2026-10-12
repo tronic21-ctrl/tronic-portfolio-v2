@@ -32,7 +32,7 @@ export const translations = {
         accentPart: "mid",
         bioPre: "I'm ",
         bioMid: ", known online as ",
-        bioPost: ". Economics graduate (B.Sc. Development Economics, UNINGRAT Tual, Dec 2025) from Indonesia, who transitioned into Web3 development through self-directed learning in April 2026who transitioned into Web3 development through self-directed learning in April 2026.",
+        bioPost: ". Economics graduate (B.Sc. Development Economics, UNINGRAT Tual, Dec 2025) from Indonesia, who transitioned into Web3 development through self-directed learning in April 2026.",
         bioSub: "My Economics background isn't just a credential because it shapes how I think about protocol design, incentive structures, and DeFi analytics.",
       },
       panel2: {
@@ -43,7 +43,7 @@ export const translations = {
         body: "My strategic focus is building at the intersection of protocol economics and on-chain analytics. I develop secure full-stack dApps using Solidity and React, and construct deep indexing pipelines to decode raw blockchain logs into structured, actionable economic insights.",
         valueCards: [
           { title: "VERIFY",  desc: "Each smart contract undergoes line-by-line review and testing prior to deployment, requiring the same level of rigor as testing regression models for complex cases." },
-          { title: "BUILD",   desc: "From SimpleBank to TronicLens, six live projects shipped in three months, self-taught from zero in April 2026." },
+          { title: "BUILD",   desc: "From SimpleBank to BanSOSChain, live projects shipped end-to-end, self-taught from zero in April 2026." },
           { title: "ANALYZE", desc: "DeFi analytics isn't just dashboards, it's reading on-chain data the way an economist reads market signals." },
         ],
       },
@@ -56,10 +56,10 @@ export const translations = {
     },
     stats: {
       items: [
-        { label: "Tests Written",        sublabel: "Foundry · 98% coverage" },
-        { label: "Projects Shipped",     sublabel: "4 live deployments" },
-        { label: "Protocols Integrated", sublabel: "The Graph · Chainlink · 0G" },
-        { label: "Contracts Deployed",   sublabel: "Sepolia · verified on-chain" },
+        { label: "Tests Written",        sublabel: "Foundry · 2 projects" },
+        { label: "Projects Shipped",     sublabel: "Live deployments" },
+        { label: "Protocols & Tools",    sublabel: "The Graph · Chainlink · 0G · Ponder" },
+        { label: "Contracts Deployed",   sublabel: "Sepolia + BNB Testnet · verified" },
       ],
     },
     journey: {
@@ -89,6 +89,12 @@ export const translations = {
           date: "Mar 2026 - Present",
           desc: "Started learning web development from scratch (HTML, CSS, JavaScript, React). Now building production-grade smart contracts with NatSpec documentation, security patterns (ReentrancyGuard, CEI), Foundry testing, and integrating DeFi protocols (The Graph, Chainlink, 0G Storage, 0G Compute).",
         },
+        {
+          role: "Web3 Workshop Series",
+          company: "Binance Academy · BNB Chain · Coinvestasi",
+          date: "Jul - Aug 2026",
+          desc: "Took part in the nine-session online workshop series of the Indonesia Web3 Hackathon 2026, mentored by Dev Web3 Jogja: Web3 fundamentals, smart contract development, AI x Web3, and preparing a hackathon project. Built a bounty-board dApp as practice. Certificate of participation issued.",
+        },
       ],
     },
     projectsIntro: {
@@ -97,11 +103,15 @@ export const translations = {
       titleAccent: "PROJECTS",
       desc: "A growing collection of builds from hackathons to client work each one shipped end-to-end, from architecture to deployment.",
     },
-    projects: {
+   projects: {
       items: [
         {
+          title: "BANSOSCHAIN: SOCIAL AID AUDIT TRAIL",
+          desc: "Every step from application to disbursement is recorded on-chain and checkable by anyone. Two verified contracts on BNB Chain Testnet, a Ponder indexer, and AI eligibility review with human oversight. Indonesia Web3 Hackathon 2026 submission.",
+        },
+        {
           title: "TRONICLENS: ON-CHAIN INTELLIGENCE",
-          desc: "Full-stack DeFi analytics dashboard indexing on-chain Sepolia activity. Subgraph indexing via The Graph, Chainlink price feeds, 0G AI insights (Qwen2.5 TEE), on-chain governance. ETHOnline 2026 hackathon submission.",
+          desc: "Full-stack DeFi analytics dashboard indexing on-chain Sepolia activity. Subgraph indexing via The Graph, Chainlink price feeds, 0G AI insights (Qwen2.5 TEE), on-chain governance. 107 Foundry tests passing.",
         },
         {
           title: "DEFI DASHBOARD WITH DUNE API & SQL LOGS",
@@ -184,7 +194,7 @@ export const translations = {
         body: "Fokus strategis saya adalah membangun di persimpangan ekonomi protokol dan analitik on-chain. Saya mengembangkan dApp full-stack yang aman menggunakan Solidity dan React, serta membangun pipeline indexing mendalam untuk mengurai log blockchain mentah menjadi wawasan ekonomi yang terstruktur dan bernilai.",
         valueCards: [
           { title: "VERIFIKASI", desc: "Setiap smart contract diperiksa baris demi baris kemudian testing sebelum deploy, dengan ketelitian yang sama seperti menguji model regresi untuk kasus kompleks." },
-          { title: "BANGUN",     desc: "Dari SimpleBank hingga TronicLens, enam proyek live dirilis dalam tiga bulan, belajar otodidak dari nol sejak April 2026." },
+          { title: "BANGUN",     desc: "Dari SimpleBank hingga BanSOSChain, proyek live dirilis end-to-end, belajar otodidak dari nol sejak April 2026." },
           { title: "ANALISIS",  desc: "Analitik DeFi bukan sekadar dashboard, melainkan cara membaca data on-chain layaknya ekonom membaca sinyal pasar." },
         ],
       },
@@ -197,10 +207,10 @@ export const translations = {
     },
     stats: {
       items: [
-        { label: "Test Ditulis",          sublabel: "Foundry · Cakupan 98%" },
-        { label: "Proyek Dirilis",        sublabel: "4 deployment live" },
-        { label: "Protokol Terintegrasi", sublabel: "The Graph · Chainlink · 0G" },
-        { label: "Kontrak Di-deploy",     sublabel: "Sepolia · terverifikasi on-chain" },
+        { label: "Test Ditulis",          sublabel: "Foundry · 2 proyek" },
+        { label: "Proyek Dirilis",        sublabel: "Deployment live" },
+        { label: "Protokol & Tool",       sublabel: "The Graph · Chainlink · 0G · Ponder" },
+        { label: "Kontrak Di-deploy",     sublabel: "Sepolia + BNB Testnet · terverifikasi" },
       ],
     },
     journey: {
@@ -230,6 +240,12 @@ export const translations = {
           date: "Mar 2026 - Sekarang",
           desc: "Mulai belajar web development dari nol (HTML, CSS, JavaScript, React). Kini membangun smart contract tingkat produksi dengan dokumentasi NatSpec, pola keamanan (ReentrancyGuard, CEI), testing Foundry, dan integrasi protokol DeFi (The Graph, Chainlink, 0G Storage, 0G Compute).",
         },
+        {
+          role: "Seri Workshop Web3",
+          company: "Binance Academy · BNB Chain · Coinvestasi",
+          date: "Jul - Agu 2026",
+          desc: "Berpartisipasi dalam rangkaian workshop online Indonesia Web3 Hackathon 2026 dengan mentoring Dev Web3 Jogja: fundamental Web3, pengembangan smart contract, AI x Web3, dan persiapan proyek hackathon. Membangun dApp bounty board sebagai latihan. Sertifikat partisipasi diterbitkan.",
+        },
       ],
     },
     projectsIntro: {
@@ -241,8 +257,12 @@ export const translations = {
     projects: {
       items: [
         {
+          title: "BANSOSCHAIN: JEJAK AUDIT BANSOS",
+          desc: "Setiap tahap, dari pengajuan hingga pencairan, dicatat on-chain dan bisa diperiksa siapa saja. Dua kontrak terverifikasi di BNB Chain Testnet, indexer Ponder, dan penilaian kelayakan AI dengan pengawasan manusia. Submission Indonesia Web3 Hackathon 2026.",
+        },
+        {
           title: "TRONICLENS: ON-CHAIN INTELLIGENCE",
-          desc: "Dashboard analitik DeFi full-stack yang mengindeks aktivitas on-chain Sepolia. Indexing subgraph via The Graph, price feed Chainlink, insight AI 0G (Qwen2.5 TEE), governance on-chain. Submission hackathon ETHOnline 2026.",
+          desc: "Dashboard analitik DeFi full-stack yang mengindeks aktivitas on-chain Sepolia. Indexing subgraph via The Graph, price feed Chainlink, insight AI 0G (Qwen2.5 TEE), governance on-chain. 107 test Foundry lulus.",
         },
         {
           title: "DASHBOARD DEFI DENGAN DUNE API & SQL LOGS",
