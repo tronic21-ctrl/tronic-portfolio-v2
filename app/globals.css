@@ -2826,3 +2826,9 @@ body { background: var(--bg-deep); }
 .journey-cta {
   margin-top: 1.1rem;
 }
+
+.footer-contact-grid {
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
