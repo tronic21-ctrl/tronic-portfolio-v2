@@ -11,6 +11,8 @@ export default function ConstellationCanvas() {
     if (!ctx) return;
 
     let animId: number;
+    // Reduced motion: draw a single static frame instead of a loop.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let W = window.innerWidth;
     let H = window.innerHeight;
 
@@ -69,7 +71,7 @@ export default function ConstellationCanvas() {
         if (n.y < 0 || n.y > H) n.vy *= -1;
       });
 
-      animId = requestAnimationFrame(draw);
+      if (!reduceMotion) animId = requestAnimationFrame(draw);
     }
 
     draw();
@@ -79,6 +81,7 @@ export default function ConstellationCanvas() {
       H = window.innerHeight;
       canvas.width = W;
       canvas.height = H;
+      if (reduceMotion) draw();
     };
     window.addEventListener("resize", onResize);
 

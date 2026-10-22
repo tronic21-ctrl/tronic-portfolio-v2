@@ -25,18 +25,18 @@ export const translations = {
     },
     about: {
       panel1: {
-        label: "— 01 — EXECUTIVE OVERVIEW",
+        label: "01 - EXECUTIVE OVERVIEW",
         headingPre: "ECONOMICS",
         headingMid: "× WEB3",
-        headingPost: "LEADERSHIP.",
-        accentPart: "mid",
+        headingPost: "BUILDER.",
+        accentPart: "mid" as "mid" | "post",
         bioPre: "I'm ",
         bioMid: ", known online as ",
         bioPost: ". Economics graduate (B.Sc. Development Economics, UNINGRAT Tual, Dec 2025) from Indonesia, who transitioned into Web3 development through self-directed learning in April 2026.",
         bioSub: "My Economics background isn't just a credential because it shapes how I think about protocol design, incentive structures, and DeFi analytics.",
       },
       panel2: {
-        label: "— 02 — STRATEGIC MISSION",
+        label: "02 - STRATEGIC MISSION",
         headingPre: "BUILDING",
         headingAccent: "ON-CHAIN.",
         headingPost: "DEFI ANALYTICS.",
@@ -48,7 +48,7 @@ export const translations = {
         ],
       },
       panel3: {
-        label: "— 03 — TRACK RECORD",
+        label: "03 - TRACK RECORD",
         headingPre: "PROVEN",
         headingAccent: "BY CODE.",
         verifiedBadge: "Verified",
@@ -56,10 +56,10 @@ export const translations = {
     },
     stats: {
       items: [
-        { label: "Tests Written",        sublabel: "Foundry · 2 projects" },
-        { label: "Projects Shipped",     sublabel: "Live deployments" },
+        { label: "Tests Passing",        sublabel: "BanSOSChain 22 · TronicLens 107" },
+        { label: "Projects Built",       sublabel: "4 live demos · 1 internship" },
         { label: "Protocols & Tools",    sublabel: "The Graph · Chainlink · 0G · Ponder" },
-        { label: "Contracts Deployed",   sublabel: "Sepolia + BNB Testnet · verified" },
+        { label: "Contracts Deployed",   sublabel: "Sepolia + BNB Testnet" },
       ],
     },
     journey: {
@@ -95,13 +95,19 @@ export const translations = {
           date: "Jul - Aug 2026",
           desc: "Took part in the nine-session online workshop series of the Indonesia Web3 Hackathon 2026, mentored by Dev Web3 Jogja: Web3 fundamentals, smart contract development, AI x Web3, and preparing a hackathon project. Built a bounty-board dApp as practice. Certificate of participation issued.",
         },
+        {
+          role: "IT Assistant Intern",
+          company: "BPS Kota Tual · MagangHub Batch 2",
+          date: "Sep 2026 - Mar 2027",
+          desc: "Six-month internship through MagangHub Batch 2, from 21 September 2026 to 20 March 2027, as Asisten Pranata Komputer at Statistics Indonesia (BPS) Kota Tual.",
+        },
       ],
     },
     projectsIntro: {
       sectionLabel: "Projects",
       titlePre: "SELECTED",
       titleAccent: "PROJECTS",
-      desc: "A growing collection of builds from hackathons to client work each one shipped end-to-end, from architecture to deployment.",
+      desc: "From hackathon builds to an internship project. Four of them are live, each built end-to-end from architecture to deployment.",
     },
    projects: {
       items: [
@@ -120,6 +126,10 @@ export const translations = {
         {
           title: "CRYPTO TRACKER WITH LIVE MARKET DATA",
           desc: "Real-time crypto price tracker with live market data, portfolio view, and historical charts. First production React project.",
+        },
+        {
+          title: "EMPLOYEE ASSESSMENT PLATFORM",
+          desc: "Internship project: a quarterly employee assessment app. Raters score staff on responsiveness, speed, and quality, save a draft, then submit a final score that locks. The results page ranks the top employee in each category by the average across all raters. Shown with sample data.",
         },
       ],
       githubBtn: "GitHub",
@@ -176,18 +186,18 @@ export const translations = {
     },
     about: {
       panel1: {
-        label: "— 01 — GAMBARAN EKSEKUTIF",
+        label: "01 - GAMBARAN EKSEKUTIF",
         headingPre: "EKONOMI",
-        headingMid: "× KEPEMIMPINAN",
-        headingPost: "WEB3.",
-        accentPart: "post",
+        headingMid: "× WEB3",
+        headingPost: "BUILDER.",
+        accentPart: "mid" as "mid" | "post",
         bioPre: "Saya ",
         bioMid: ", dikenal secara online sebagai ",
         bioPost: ". Lulusan Ekonomi (S1 Ekonomi Pembangunan, UNINGRAT Tual, Des 2025) dari Indonesia, yang beralih ke pengembangan Web3 secara otodidak sejak April 2026.",
         bioSub: "Latar belakang Ekonomi saya bukan sekadar gelar karena itu membentuk cara saya berpikir tentang desain protokol, struktur insentif, dan analitik DeFi.",
       },
       panel2: {
-        label: "— 02 — MISI STRATEGIS",
+        label: "02 - MISI STRATEGIS",
         headingPre: "MEMBANGUN",
         headingAccent: "ON-CHAIN.",
         headingPost: "ANALITIK DEFI.",
@@ -199,7 +209,7 @@ export const translations = {
         ],
       },
       panel3: {
-        label: "— 03 — REKAM JEJAK",
+        label: "03 - REKAM JEJAK",
         headingPre: "TERBUKTI",
         headingAccent: "DENGAN KODE.",
         verifiedBadge: "Terverifikasi",
@@ -207,10 +217,10 @@ export const translations = {
     },
     stats: {
       items: [
-        { label: "Test Ditulis",          sublabel: "Foundry · 2 proyek" },
-        { label: "Proyek Dirilis",        sublabel: "Deployment live" },
+        { label: "Test Lulus",            sublabel: "BanSOSChain 22 · TronicLens 107" },
+        { label: "Proyek Dibangun",       sublabel: "4 demo live · 1 magang" },
         { label: "Protokol & Tool",       sublabel: "The Graph · Chainlink · 0G · Ponder" },
-        { label: "Kontrak Di-deploy",     sublabel: "Sepolia + BNB Testnet · terverifikasi" },
+        { label: "Kontrak Di-deploy",     sublabel: "Sepolia + BNB Testnet" },
       ],
     },
     journey: {
@@ -246,13 +256,19 @@ export const translations = {
           date: "Jul - Agu 2026",
           desc: "Berpartisipasi dalam rangkaian workshop online Indonesia Web3 Hackathon 2026 dengan mentoring Dev Web3 Jogja: fundamental Web3, pengembangan smart contract, AI x Web3, dan persiapan proyek hackathon. Membangun dApp bounty board sebagai latihan. Sertifikat partisipasi diterbitkan.",
         },
+        {
+          role: "Asisten Pranata Komputer (Magang)",
+          company: "BPS Kota Tual · MagangHub Batch 2",
+          date: "Sep 2026 - Mar 2027",
+          desc: "Magang enam bulan melalui program MagangHub Batch 2, 21 September 2026 sampai 20 Maret 2027, sebagai Asisten Pranata Komputer di Badan Pusat Statistik (BPS) Kota Tual.",
+        },
       ],
     },
     projectsIntro: {
       sectionLabel: "Proyek",
       titlePre: "PROYEK",
       titleAccent: "TERPILIH",
-      desc: "Kumpulan proyek yang terus berkembang mulai dari hackathon hingga proyek klien masing-masing dibangun end-to-end, dari arsitektur sampai deployment.",
+      desc: "Dari proyek hackathon hingga proyek magang. Empat di antaranya sudah live, masing-masing dibangun end-to-end dari arsitektur sampai deployment.",
     },
     projects: {
       items: [
@@ -271,6 +287,10 @@ export const translations = {
         {
           title: "CRYPTO TRACKER DENGAN DATA LIVE MARKET",
           desc: "Pelacak harga crypto real-time dengan data live market, tampilan portfolio, dan grafik historis. Proyek React produksi pertama.",
+        },
+        {
+          title: "PLATFORM PENILAIAN PEGAWAI",
+          desc: "Proyek magang: aplikasi penilaian pegawai per triwulan. Penilai memberi skor responsivitas, kecepatan, dan kualitas, menyimpan draf, lalu mengirim nilai final yang terkunci. Halaman hasil menampilkan peringkat terbaik di tiap kategori berdasarkan rata-rata semua penilai. Ditampilkan dengan data contoh.",
         },
       ],
       githubBtn: "GitHub",

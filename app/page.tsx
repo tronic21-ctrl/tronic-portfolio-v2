@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Lenis from "@studio-freight/lenis";
@@ -31,7 +31,6 @@ const MONTHS_SELF_TAUGHT = (() => {
 // Optional proof link per Journey item, by index (language-neutral).
 const JOURNEY_LINKS: Record<number, { href: string; label: { en: string; id: string } }> = {
   4: { href: "/certificate-web3-workshop.pdf", label: { en: "View certificate", id: "Lihat sertifikat" } },
-  5: { href: "https://bansoschain.vercel.app", label: { en: "View live project", id: "Lihat proyek live" } },
 };
 
 const ABOUT_METRICS = [
@@ -81,6 +80,15 @@ const PROJECTS = [
     live: "https://crypto-tracker-pi-silk.vercel.app",
     imgMain: "/crypto-tracker.png",
     imgSub: "/crypto-tracker.png"
+  },
+  {
+    num: "05.",
+    tagsString: "",
+    pills: [],
+    link: "#",
+    live: "#",
+    imgMain: "/assessment-results-sample.png",
+    imgSub: "/assessment-login-sample.png"
   }
 ];
 
@@ -169,9 +177,20 @@ export default function Portfolio() {
   const [introDone, setIntroDone] = useState(false);
 
   useLayoutEffect(() => {
-    if (sessionStorage.getItem("intro_shown") === "true") {
+    // Reduced-motion visitors skip the animated intro entirely.
+    if (
+      sessionStorage.getItem("intro_shown") === "true" ||
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    ) {
       setIntroDone(true);
     }
+  }, []);
+
+  // Stable reference: IntroScreen's effect depends on it, so an inline
+  // arrow would restart the intro on every parent re-render.
+  const handleIntroComplete = useCallback(() => {
+    sessionStorage.setItem("intro_shown", "true");
+    setIntroDone(true);
   }, []);
 
   const [menuOpen, setMenuOpen] = useState(false);
@@ -204,11 +223,15 @@ export default function Portfolio() {
   useEffect(() => {
     if (!introDone) return;
 
+    // prefers-reduced-motion: keep scroll-driven layout (pins, horizontal
+    // track) but drop smoothing, parallax, tilt and decorative motion.
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     // Lenis smooth scroll, synced to GSAP's ticker + ScrollTrigger
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      smoothWheel: true,
+      smoothWheel: !reduceMotion,
       touchMultiplier: 1.5,
     });
     lenis.on("scroll", ScrollTrigger.update);
@@ -225,18 +248,18 @@ export default function Portfolio() {
       if (!href) return;
       e.preventDefault();
       if (href === "#") {
-        lenis.scrollTo(0);
+        lenis.scrollTo(0, { immediate: reduceMotion });
         return;
       }
       const target = document.querySelector(href);
-      if (target) lenis.scrollTo(target as HTMLElement, { offset: -90 });
+      if (target) lenis.scrollTo(target as HTMLElement, { offset: -90, immediate: reduceMotion });
     };
     document.addEventListener("click", onAnchorClick);
 
     // Glowing Custom Cursor Blob Mouse Move
     const blob = document.querySelector(".cursor-glow-blob") as HTMLElement;
     const onMouseMoveGlow = (e: MouseEvent) => {
-      if (blob) {
+      if (blob && !reduceMotion) {
         gsap.to(blob, {
           x: e.clientX,
           y: e.clientY,
@@ -298,7 +321,7 @@ export default function Portfolio() {
       // Interactive parallax on hero card background
       const card = document.querySelector(".hero") as HTMLElement;
       const bg = document.querySelector(".hero-card-bg") as HTMLElement;
-      if (card && bg) {
+      if (card && bg && !reduceMotion) {
         const onMouseMove = (e: MouseEvent) => {
           const rect = card.getBoundingClientRect();
           const x = e.clientX - rect.left - rect.width / 2;
@@ -479,7 +502,7 @@ export default function Portfolio() {
       wrappers.forEach(wrapper => {
         const primary = wrapper.querySelector(".mockup-card-primary") as HTMLElement;
         const secondary = wrapper.querySelector(".mockup-card-secondary") as HTMLElement;
-        if (!primary || !secondary) return;
+        if (!primary || !secondary || reduceMotion) return;
 
         const onMouseMoveTilt = (e: Event) => {
           const mouseEvent = e as MouseEvent;
@@ -538,9 +561,9 @@ export default function Portfolio() {
       // tween, scrolling back up naturally reverses the same motion (fades
       // in from the top edge, then fades out downward), consistently on
       // every pass through the section.
-      gsap.utils.toArray<HTMLElement>(
+      (reduceMotion ? [] : gsap.utils.toArray<HTMLElement>(
         "#skills .skills-fade-item, #skills .skills-row-cat, #skills .skill-pill-v2"
-      ).forEach((el) => {
+      )).forEach((el) => {
         gsap.timeline({
           scrollTrigger: {
             trigger: el,
@@ -610,6 +633,7 @@ export default function Portfolio() {
         });
 
         // Card stack transition (opacity + scale scrub) is active on both mobile and desktop
+        if (reduceMotion) return;
         const inner = panel.querySelector(".about-flow-inner");
         gsap.to(inner, {
           scale: 0.88, opacity: 0.25, ease: "none",
@@ -644,10 +668,7 @@ export default function Portfolio() {
 
   return (
     <>
-      {!introDone && <IntroScreen onComplete={() => {
-        sessionStorage.setItem("intro_shown", "true");
-        setIntroDone(true);
-      }} />}
+      {!introDone && <IntroScreen onComplete={handleIntroComplete} />}
       {/* Global constellation background — fixed, renders behind everything */}
       <ConstellationCanvas />
 
@@ -700,8 +721,9 @@ export default function Portfolio() {
         <div className="hero-bg-layer">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src="/hero-bg4.png"
-            alt="Workspace"
+            src="/hero-bg4.webp"
+            alt=""
+            fetchPriority="high"
             className="hero-card-bg"
             style={{
               width: '130%',
@@ -727,13 +749,13 @@ export default function Portfolio() {
                 <img src="/RT.png" alt="RT" className="hero-sig-logo" />
               </div>
               <div className="hero-social-pill">
-                <a href="https://github.com/tronic21-ctrl" target="_blank" rel="noreferrer" className="hero-social-circle">
+                <a href="https://github.com/tronic21-ctrl" target="_blank" rel="noreferrer" className="hero-social-circle" aria-label="GitHub">
                   <svg viewBox="0 0 496 512" fill="currentColor" width="20" height="20"><path d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8z"/></svg>
                 </a>
-                <a href="https://x.com/rikotronic" target="_blank" rel="noreferrer" className="hero-social-circle">
+                <a href="https://x.com/rikotronic" target="_blank" rel="noreferrer" className="hero-social-circle" aria-label="X">
                   <svg viewBox="0 0 512 512" fill="currentColor" width="18" height="18"><path d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"/></svg>
                 </a>
-                <a href="mailto:rikotronic.dev@gmail.com" target="_blank" rel="noreferrer" className="hero-social-circle">
+                <a href="mailto:rikotronic.dev@gmail.com" className="hero-social-circle" aria-label="Email">
                   <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20"><path fill="none" d="M0 0h24v24H0z"/><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/></svg>
                 </a>
               </div>
@@ -1031,7 +1053,12 @@ export default function Portfolio() {
                   <p className="journey-desc">{item.desc}</p>
                     {JOURNEY_LINKS[i] && (
                       <a className="project-btn-live journey-cta" href={JOURNEY_LINKS[i].href} target="_blank" rel="noopener noreferrer">
-                        {JOURNEY_LINKS[i].label[lang]}<span className="project-btn-arrow">↗</span>
+                        {JOURNEY_LINKS[i].label[lang]}
+                        <span className="project-btn-arrow">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17L17 7M7 7h10v10"/>
+                          </svg>
+                        </span>
                       </a>
                     )}
                 </div>
@@ -1047,7 +1074,12 @@ export default function Portfolio() {
                 <p className="journey-desc">{item.desc}</p>
                   {JOURNEY_LINKS[i] && (
                     <a className="project-btn-live journey-cta" href={JOURNEY_LINKS[i].href} target="_blank" rel="noopener noreferrer">
-                      {JOURNEY_LINKS[i].label[lang]}<span className="project-btn-arrow">↗</span>
+                      {JOURNEY_LINKS[i].label[lang]}
+                        <span className="project-btn-arrow">
+                          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M7 17L17 7M7 7h10v10"/>
+                          </svg>
+                        </span>
                     </a>
                   )}
               </div>
@@ -1065,7 +1097,7 @@ export default function Portfolio() {
           </div>
           <div className="intro-main">
             <h2 className="intro-title">
-              {t.projectsIntro.titlePre} <span className="purple-gradient-text">{t.projectsIntro.titleAccent}</span> / <span className="projects-count">( {PROJECTS.length} )</span>
+              {t.projectsIntro.titlePre} <span className="accent-word">{t.projectsIntro.titleAccent}</span> / <span className="projects-count">( {PROJECTS.length} )</span>
             </h2>
             <p className="intro-desc">
               {t.projectsIntro.desc}
@@ -1092,36 +1124,40 @@ export default function Portfolio() {
                     <div className="mockup-perspective-wrapper">
                       <div className="mockup-card-primary">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.imgMain} alt={`${t.projects.items[i].title} Desktop`} className="mockup-img" />
+                        <img src={p.imgMain} alt={`${t.projects.items[i].title}: main view`} className="mockup-img" />
                       </div>
                       <div className="mockup-card-secondary" data-y-offset="-20">
                         {/* eslint-disable-next-line @next/next/no-img-element */}
-                        <img src={p.imgSub} alt={`${t.projects.items[i].title} Mobile`} className="mockup-img" />
+                        <img src={p.imgSub} alt={`${t.projects.items[i].title}: detail view`} className="mockup-img" />
                       </div>
                     </div>
                   </div>
 
                   <div className="project-stack-info">
-                    <div className="project-meta-tags">
-                      {p.pills.slice(0, -1).map((tag) => (
-                        <React.Fragment key={tag}>
-                          <span className="project-tag-text">{tag}</span>
-                          <span className="project-tag-dot" aria-hidden="true">·</span>
-                        </React.Fragment>
-                      ))}
-                      <span className="project-tag-year">{p.pills[p.pills.length - 1]}</span>
-                    </div>
+                    {p.pills.length > 0 && (
+                      <div className="project-meta-tags">
+                        {p.pills.slice(0, -1).map((tag) => (
+                          <React.Fragment key={tag}>
+                            <span className="project-tag-text">{tag}</span>
+                            <span className="project-tag-dot" aria-hidden="true">·</span>
+                          </React.Fragment>
+                        ))}
+                        <span className="project-tag-year">{p.pills[p.pills.length - 1]}</span>
+                      </div>
+                    )}
 
                     <h3 className="project-row-title">{t.projects.items[i].title}</h3>
 
                     <p className="project-row-desc">{t.projects.items[i].desc}</p>
 
                     <div className="project-row-actions">
+                      {p.link !== "#" && (
                       <a href={p.link} target="_blank" rel="noreferrer" className="project-btn-icon" aria-label="GitHub Repository">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
                           <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.09 3.29 9.4 7.86 10.93.57.1.78-.25.78-.55 0-.27-.01-1-.02-1.96-3.2.7-3.88-1.54-3.88-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.23-1.28-5.23-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.18a11 11 0 0 1 5.79 0c2.2-1.49 3.17-1.18 3.17-1.18.64 1.59.24 2.76.12 3.05.74.81 1.18 1.84 1.18 3.1 0 4.42-2.69 5.4-5.25 5.68.41.36.78 1.08.78 2.17 0 1.57-.01 2.83-.01 3.22 0 .3.2.66.79.55A10.51 10.51 0 0 0 23.5 12c0-6.35-5.15-11.5-11.5-11.5z"/>
                         </svg>
                       </a>
+                      )}
                       {p.live !== "#" && (
                         <a href={p.live} target="_blank" rel="noreferrer" className="project-btn-live">
                           {t.projects.liveDemoBtn}
@@ -1283,16 +1319,16 @@ export default function Portfolio() {
           <div className="contact-form-side reveal-up">
             <form action="https://formspree.io/f/mwvznanb" method="POST">
               <div className="contact-form-group">
-                <label>{t.footer.form.nameLabel}</label>
-                <input type="text" name="name" placeholder={t.footer.form.namePlaceholder} required />
+                <label htmlFor="contact-name">{t.footer.form.nameLabel}</label>
+                <input id="contact-name" type="text" name="name" autoComplete="name" placeholder={t.footer.form.namePlaceholder} required />
               </div>
               <div className="contact-form-group">
-                <label>{t.footer.form.emailLabel}</label>
-                <input type="email" name="email" placeholder={t.footer.form.emailPlaceholder} required />
+                <label htmlFor="contact-email">{t.footer.form.emailLabel}</label>
+                <input id="contact-email" type="email" name="email" autoComplete="email" placeholder={t.footer.form.emailPlaceholder} required />
               </div>
               <div className="contact-form-group">
-                <label>{t.footer.form.messageLabel}</label>
-                <textarea name="message" rows={5} placeholder={t.footer.form.messagePlaceholder} required />
+                <label htmlFor="contact-message">{t.footer.form.messageLabel}</label>
+                <textarea id="contact-message" name="message" rows={5} placeholder={t.footer.form.messagePlaceholder} required />
               </div>
               <button type="submit" className="space-btn" style={{ width: "100%", marginTop: "1rem" }}>
                 <strong>{t.footer.form.sendBtn}</strong>

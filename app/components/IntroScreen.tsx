@@ -12,7 +12,7 @@ export default function IntroScreen({ onComplete }: IntroScreenProps) {
   const logoSolidRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const CRITICAL_ASSETS = ["/hero-bg4.png"];
+    const CRITICAL_ASSETS = ["/hero-bg4.webp"];
     const preloadImage = (src: string) =>
       new Promise<void>((resolve) => {
         const img = new Image();
