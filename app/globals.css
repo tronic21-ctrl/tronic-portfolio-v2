@@ -2776,6 +2776,7 @@ body { background: var(--bg-deep); }
 
 .journey-cta {
   margin-top: 1.1rem;
+  align-self: flex-start;
 }
 
 .footer-contact-grid {
